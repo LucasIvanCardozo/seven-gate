@@ -49,7 +49,7 @@ ALTER TABLE "users" ADD FOREIGN KEY ("idCategories") REFERENCES "categories" ("i
 
 Esto generará una pequeña muestra de la base de datos con las tablas `users` y `categories`.
 
-3. **Crear el archivo `.env`**  
+4. **Crear el archivo `.env`**  
    Crea un archivo llamado `.env` en la raíz del proyecto con el siguiente contenido:
 
 ```env

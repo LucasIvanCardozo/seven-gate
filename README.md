@@ -24,8 +24,8 @@ npm install
 2. **Crear un servidor en pgAdmin**  
    Una vez instalado pgAdmin, crea un nuevo servidor con las siguientes configuraciones:
 
-- **Nombre del servidor:** `aeecProyect`
-- **Contraseña:** `adios123`
+-   **Nombre del servidor:** `aeecProyect`
+-   **Contraseña:** `adios123`
 
 Esto asegurará que coincida con la configuración de la variable de entorno del proyecto.
 
@@ -61,10 +61,10 @@ Esto es necesario para vincular Prisma con la base de datos PostgreSQL.
 5. **Sincronizar Prisma con la base de datos**  
    Una vez creada la base de datos, ejecuta los siguientes comandos en la terminal:
 
-- `npx prisma db pull`  
-  Este comando sincroniza el esquema de Prisma con la base de datos existente.
-- `npx prisma generate`  
-  Esto generará los tipados necesarios para usar Prisma en el proyecto.
+-   `npx prisma db pull`  
+    Este comando sincroniza el esquema de Prisma con la base de datos existente.
+-   `npx prisma generate`  
+    Esto generará los tipados necesarios para usar Prisma en el proyecto.
 
 6. **Ejecutar el proyecto**  
    Finalmente, inicia el servidor de desarrollo con:

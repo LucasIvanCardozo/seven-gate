@@ -49,7 +49,16 @@ ALTER TABLE "users" ADD FOREIGN KEY ("idCategories") REFERENCES "categories" ("i
 
 Esto generará una pequeña muestra de la base de datos con las tablas `users` y `categories`.
 
-4. **Sincronizar Prisma con la base de datos**  
+3. **Crear el archivo `.env`**  
+   Crea un archivo llamado `.env` en la raíz del proyecto con el siguiente contenido:
+
+```env
+DATABASE_URL="postgres://postgres:adios123@localhost:5432/aeecProyect"
+```
+
+Esto es necesario para vincular Prisma con la base de datos PostgreSQL.
+
+5. **Sincronizar Prisma con la base de datos**  
    Una vez creada la base de datos, ejecuta los siguientes comandos en la terminal:
 
 - `npx prisma db pull`  
@@ -57,7 +66,7 @@ Esto generará una pequeña muestra de la base de datos con las tablas `users` y
 - `npx prisma generate`  
   Esto generará los tipados necesarios para usar Prisma en el proyecto.
 
-5. **Ejecutar el proyecto**  
+6. **Ejecutar el proyecto**  
    Finalmente, inicia el servidor de desarrollo con:
 
 ```bash

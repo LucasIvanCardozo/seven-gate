@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import { createUser } from '../services/dataActions';
 import { users } from '@prisma/client';

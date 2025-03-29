@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react"
 
+import { User } from "@prisma/client"
 import { createUser } from "../services/dataActions"
 import { fetchUsers } from "../services/dataFetchs"
-import { users } from "@prisma/client"
 
 export default function CreateUser() {
-    const [users, setUsers] = useState<users[]>([])
+    const [users, setUsers] = useState<User[]>([])
 
     useEffect(() => {
         updateUsers()

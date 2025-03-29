@@ -1,10 +1,10 @@
 "use server"
 
-import prisma from "./db"
+import { DB } from "./db"
 
 export async function createUser(data: { name: string }) {
     try {
-        const user = await prisma.users.create({
+        const user = await DB.user.create({
             data,
         })
         return user

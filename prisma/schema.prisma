@@ -5,18 +5,9 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DATABASE_URL_NON_POOLING")
 }
 
-model categories {
-  id    Int     @id @default(autoincrement())
-  name  String? @db.VarChar
-  users users[]
-}
-
-model users {
-  id           Int         @id @default(autoincrement())
-  idCategories Int?
-  name         String?     @db.VarChar
-  categories   categories? @relation(fields: [idCategories], references: [id], onDelete: NoAction, onUpdate: NoAction)
+model User {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar()
 }

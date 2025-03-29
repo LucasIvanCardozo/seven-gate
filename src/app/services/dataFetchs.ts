@@ -1,13 +1,13 @@
 "use server"
 
-import prisma from "./db"
+import { DB } from "./db"
 
 export async function fetchUsers() {
-    const users = await prisma.users.findMany()
+    const users = await DB.user.findMany()
     return users
 }
 
 export async function fetchCategories() {
-    const categories = await prisma.categories.findMany()
-    return categories
+    //const categories = await prisma.categories.findMany()
+    return []
 }

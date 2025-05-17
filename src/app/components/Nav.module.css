@@ -1,0 +1,42 @@
+.nav {
+    display: flex;
+    width: 100%;
+    position: static;
+    flex-direction: column;
+    background: var(--color-primary);
+}
+
+.nav ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.burger {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .nav {
+        background: 0;
+        position: fixed;
+        align-items: flex-end;
+    }
+
+    .nav ul {
+        background-color: var(--color-primary);
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        width: 200px;
+        padding: 0;
+        gap: 10px;
+    }
+
+    .burger {
+        display: block;
+        cursor: pointer;
+        margin: 5px 5px 5px auto;
+    }
+}

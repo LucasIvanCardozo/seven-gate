@@ -1,29 +1,14 @@
-import CreateUser from "./components/createUser"
-import Link from "next/link"
+"use client"
+
+import { useSession } from "next-auth/react"
 
 export default function Home() {
+    const { data } = useSession()
+
     return (
         <>
-            <main>
-                Hola mundo
-                <h1 className="text-4xl font-bold">Home</h1>
-                <p>Esta es la pagina principal</p>
-                <Link
-                    className="py-1 px-2 bg-blue-900 rounded-sm hover:underline"
-                    href="/blog"
-                >
-                    Ir al Blog
-                </Link>
-                <Link
-                    className="py-1 px-2 bg-blue-900 rounded-sm hover:underline"
-                    href="/users"
-                >
-                    Ir a los Usuarios
-                </Link>
-            </main>
-            <section>
-                <CreateUser />
-            </section>
+            <main>{data?.user?.name}</main>
+            <section></section>
         </>
     )
 }

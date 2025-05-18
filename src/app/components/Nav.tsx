@@ -21,6 +21,7 @@ export const Nav = () => {
                     <Link href="/">Inicio</Link>
                     <Link href="/register">Registro</Link>
                     <Link href="/login">Login</Link>
+                    <Link href="/conferences">Congresos</Link>
                 </ul>
             )}
         </nav>

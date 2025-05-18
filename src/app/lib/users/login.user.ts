@@ -1,5 +1,5 @@
 import { compare } from "@/app/utils/bcrypt"
-import { DB } from "../db"
+import { DB } from "../db/db"
 
 export const login = async ({ email, password }: Credentials) => {
     const user = await DB.users.findUnique({

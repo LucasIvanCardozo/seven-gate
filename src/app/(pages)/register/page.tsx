@@ -1,16 +1,18 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { type CreateUserProps } from "../lib/db/users/create.users"
+import { useUI } from "../../contexts/UIContext"
+import { CreateUserProps } from "../../lib/users"
 
 export default function Register() {
+    const { showToast } = useUI()
     const router = useRouter()
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
         const data = Object.fromEntries(
-            formData.entries()
+            formData.entries(),
         ) as unknown as CreateUserProps & { password_confirmation: string }
 
         const { password_confirmation, ...rest } = data
@@ -24,11 +26,11 @@ export default function Register() {
             headers: { "Content-Type": "application/json" },
         })
         if (response.ok) {
-            alert("Usuario creado con éxito")
+            showToast.success("Usuario creado con éxito")
             router.push("/")
         } else {
             const { message } = await response.json()
-            alert(message)
+            showToast.error(message)
         }
     }
 

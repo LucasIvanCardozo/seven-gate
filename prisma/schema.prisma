@@ -29,6 +29,7 @@ model circular {
 
 model conferences {
   id                      Int            @id @default(autoincrement())
+  active                  Boolean        @default(true)
   title                   String         @db.VarChar
   date                    DateTime       @db.Timestamp(6)
   presentation_limit_date DateTime       @db.Timestamp(6)

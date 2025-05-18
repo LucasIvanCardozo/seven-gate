@@ -1,0 +1,93 @@
+import { authOptions } from "@/app/lib/auth/authOptions"
+import {
+    type Conference,
+    GetMyConferences,
+} from "@/app/lib/conferences/get.my.conferences"
+import { getServerSession, Session } from "next-auth"
+
+const { NEXTAUTH_URL } = process.env
+
+const getMyConferences = (userId: string): Promise<GetMyConferences> =>
+    fetch(
+        `${NEXTAUTH_URL}/api/conferences/getMyConference?user_id=${userId}`,
+    ).then((res) => res.json())
+
+export default function Conferences() {
+    return (
+        <section>
+            <MyConferences />
+            <InComingConferences />
+        </section>
+    )
+}
+
+const MyConferences = async () => {
+    const session = (await getServerSession(authOptions)) as Session | null
+    if (!session) return null
+
+    const { upcomingConferences, oldConferences } = await getMyConferences(
+        session.user.id,
+    )
+
+    return (
+        <div>
+            <h2>Conferencias próximas</h2>
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateColumns:
+                        "repeat(auto-fill, minmax(350px, 1fr))",
+                    gap: 20,
+                    padding: "20px 10px",
+                }}
+            >
+                {upcomingConferences.map((item) => (
+                    <Conference key={item.id} {...item} />
+                ))}
+            </div>
+            <hr />
+
+            <h2>Conferencias antiguas</h2>
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateColumns:
+                        "repeat(auto-fill, minmax(350px, 1fr))",
+                    gap: 20,
+                    padding: "20px 10px",
+                }}
+            >
+                {oldConferences.map((item) => (
+                    <Conference key={item.id} {...item} />
+                ))}
+            </div>
+        </div>
+    )
+}
+
+const InComingConferences = () => null
+
+const Conference = ({ title, roles }: Conference) => {
+    return (
+        <article className="card egg-lead">
+            <h3>{title}</h3>
+
+            {roles && (
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                        gap: 5,
+                    }}
+                >
+                    {roles.map((item) => (
+                        <span key={item} className="tag white">
+                            {item}
+                        </span>
+                    ))}
+                </div>
+            )}
+        </article>
+    )
+}

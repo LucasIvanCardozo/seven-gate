@@ -1,5 +1,5 @@
+import { createUser } from "@/app/lib/users"
 import { NextResponse } from "next/server"
-import { createUser } from "@/app/lib/db/users"
 
 export async function POST(req: Request) {
     try {
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
                         ? error.message
                         : "Error al crear el usuario",
             },
-            { status: 500 }
+            { status: 500 },
         )
     }
 }

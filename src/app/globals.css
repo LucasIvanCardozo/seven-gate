@@ -22,6 +22,10 @@ body {
     padding: 0 1rem;
 }
 
+a {
+    color: var(--color-light-egg-lead);
+}
+
 input {
     background-color: var(--color-primary);
 }

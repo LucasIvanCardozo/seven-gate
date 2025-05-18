@@ -8,6 +8,8 @@ export const createUser = async (data: CreateUserProps) => {
     const user = await DB.users.findFirst({ where: { email } })
     if (user) throw new Error(`El usuario ${email} ya existe`)
 
+    console.log("Creating user", user)
+
     data.password = hash(data.password)
 
     // TODO: Send email to user

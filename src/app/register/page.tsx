@@ -1,8 +1,11 @@
 "use client"
 
-import { createUser, type CreateUserProps } from "../api/users/create.users"
+import { useRouter } from "next/navigation"
+import { type CreateUserProps } from "../lib/db/users/create.users"
 
 export default function Register() {
+    const router = useRouter()
+
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
@@ -15,11 +18,17 @@ export default function Register() {
         if (rest.password !== password_confirmation)
             return alert("Las contraseñas no coinciden")
 
-        try {
-            await createUser(rest)
+        const response = await fetch("/api/users/create", {
+            method: "POST",
+            body: JSON.stringify(rest),
+            headers: { "Content-Type": "application/json" },
+        })
+        if (response.ok) {
             alert("Usuario creado con éxito")
-        } catch (error) {
-           alert(error instanceof Error ? error.message : "No se pudo crear el usuario")       
+            router.push("/")
+        } else {
+            const { message } = await response.json()
+            alert(message)
         }
     }
 

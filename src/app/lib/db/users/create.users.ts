@@ -1,14 +1,11 @@
-"use server"
 import { hash } from "@/app/utils/bcrypt"
-import { DB } from "../db/db"
+import { DB } from "../db"
 
 export const createUser = async (data: CreateUserProps) => {
     const { email } = data
 
     const user = await DB.users.findFirst({ where: { email } })
     if (user) throw new Error(`El usuario ${email} ya existe`)
-
-    console.log("Creating user", user)
 
     data.password = hash(data.password)
 

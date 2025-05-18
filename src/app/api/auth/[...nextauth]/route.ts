@@ -1,7 +1,7 @@
-import NextAuth, { AuthOptions } from "next-auth"
+import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { JWT } from "next-auth/jwt"
-import { login } from "../../users/login.user"
+import { login } from "../../../lib/db/users/login.user"
 
 const authOptions = NextAuth({
     providers: [

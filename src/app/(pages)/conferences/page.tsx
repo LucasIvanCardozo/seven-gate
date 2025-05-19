@@ -6,15 +6,7 @@ import {
 import { getServerSession, Session } from "next-auth"
 import { Suspense } from "react"
 
-const { NEXTAUTH_URL } = process.env
-
-// Esta funcion era innecesaria porque al estar del lado del servidor puedo tomar el error directamente
-// const getMyConferences = (userId: string): Promise<GetMyConferences> =>
-//     fetch(
-//         `${NEXTAUTH_URL}/api/conferences/getMyConference?user_id=${userId}`,
-//     ).then((res) => res.json())
-
-export default async function Conferences() {
+export default function Conferences() {
     return (
         <section>
             <Suspense fallback={<h1>Cargando conferencias...</h1>}>

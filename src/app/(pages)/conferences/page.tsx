@@ -9,7 +9,7 @@ import { Suspense } from "react"
 export default function Conferences() {
     return (
         <section>
-            <Suspense fallback={<h1>Cargando conferencias...</h1>}>
+            <Suspense fallback={<h1>(fallback)</h1>}>
                 <MyConferences />
             </Suspense>
             <InComingConferences />

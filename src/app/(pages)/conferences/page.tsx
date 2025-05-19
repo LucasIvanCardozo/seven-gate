@@ -1,25 +1,26 @@
 import { authOptions } from "@/app/lib/auth/authOptions"
 import {
+    getMyConferences,
     type Conference,
-    GetMyConferences,
 } from "@/app/lib/conferences/get.my.conferences"
 import { getServerSession, Session } from "next-auth"
 import { Suspense } from "react"
 
 const { NEXTAUTH_URL } = process.env
 
-const getMyConferences = (userId: string): Promise<GetMyConferences> =>
-    fetch(
-        `${NEXTAUTH_URL}/api/conferences/getMyConference?user_id=${userId}`,
-    ).then((res) => res.json())
+// Esta funcion era innecesaria porque al estar del lado del servidor puedo tomar el error directamente
+// const getMyConferences = (userId: string): Promise<GetMyConferences> =>
+//     fetch(
+//         `${NEXTAUTH_URL}/api/conferences/getMyConference?user_id=${userId}`,
+//     ).then((res) => res.json())
 
 export default function Conferences() {
     return (
         <section>
             <Suspense fallback={<h1>Cargando conferencias...</h1>}>
                 <MyConferences />
-                <InComingConferences />
             </Suspense>
+            <InComingConferences />
         </section>
     )
 }
@@ -29,7 +30,7 @@ const MyConferences = async () => {
     if (!session) return null
 
     const { upcomingConferences, oldConferences } = await getMyConferences(
-        session.user.id,
+        +session.user.id,
     )
 
     return (

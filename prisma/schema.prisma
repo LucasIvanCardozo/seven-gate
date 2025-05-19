@@ -29,11 +29,11 @@ model circular {
 
 model conferences {
   id                      Int            @id @default(autoincrement())
-  active                  Boolean        @default(true)
   title                   String         @db.VarChar
   date                    DateTime       @db.Timestamp(6)
   presentation_limit_date DateTime       @db.Timestamp(6)
   logo_url                String         @db.VarChar
+  active                  Boolean?       @default(true)
   created_at              DateTime?      @default(now()) @db.Timestamp(6)
   axis                    axis[]
   circular                circular[]
@@ -107,16 +107,14 @@ model sponsors {
 
 model users {
   id         Int       @id @default(autoincrement())
-  email      String    @db.VarChar
+  email      String    @unique @db.VarChar
   name       String    @db.VarChar
   lastname   String    @db.VarChar
   phone      String    @db.VarChar
+  password   String    @db.VarChar
   created_at DateTime? @default(now()) @db.Timestamp(6)
   updated_at DateTime? @default(now()) @db.Timestamp(6)
-  password   String    @db.VarChar
   profile    profile[]
-
-  @@unique([email])
 }
 
 model votes {

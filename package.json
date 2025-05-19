@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev --turbopack",
-        "build": "prisma generate --no-engine && next build",
+        "build": "next build",
         "start": "next start",
         "lint": "next lint"
     },
@@ -17,8 +17,8 @@
         "next-auth": "4.24.11",
         "react": "19.0.0",
         "react-dom": "19.0.0",
-        "react-hot-toast": "^2.5.2",
-        "resend": "^4.5.1"
+        "react-hot-toast": "2.5.2",
+        "resend": "4.5.1"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "4",

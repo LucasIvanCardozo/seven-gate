@@ -4,6 +4,7 @@ import {
     GetMyConferences,
 } from "@/app/lib/conferences/get.my.conferences"
 import { getServerSession, Session } from "next-auth"
+import { Suspense } from "react"
 
 const { NEXTAUTH_URL } = process.env
 
@@ -15,8 +16,10 @@ const getMyConferences = (userId: string): Promise<GetMyConferences> =>
 export default function Conferences() {
     return (
         <section>
-            <MyConferences />
-            <InComingConferences />
+            <Suspense fallback={<h1>Cargando conferencias...</h1>}>
+                <MyConferences />
+                <InComingConferences />
+            </Suspense>
         </section>
     )
 }

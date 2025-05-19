@@ -27,16 +27,16 @@ export default async function Conferences() {
 
 const MyConferences = async () => {
     const session = (await getServerSession(authOptions)) as Session | null
-    await new Promise((r) => setTimeout(r, 3000))
+
     if (!session) return null
 
-    // const { upcomingConferences, oldConferences } = await getMyConferences(
-    //     +session.user.id,
-    // )
+    const { upcomingConferences, oldConferences } = await getMyConferences(
+        +session.user.id,
+    )
 
     return (
         <div>
-            {/* <h2>Conferencias próximas</h2>
+            <h2>Conferencias próximas</h2>
             <div
                 style={{
                     display: "grid",
@@ -65,7 +65,7 @@ const MyConferences = async () => {
                 {oldConferences.map((item) => (
                     <Conference key={item.id} {...item} />
                 ))}
-            </div> */}
+            </div>
         </div>
     )
 }

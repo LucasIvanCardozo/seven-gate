@@ -14,7 +14,7 @@ const { NEXTAUTH_URL } = process.env
 //         `${NEXTAUTH_URL}/api/conferences/getMyConference?user_id=${userId}`,
 //     ).then((res) => res.json())
 
-export default function Conferences() {
+export default async function Conferences() {
     return (
         <section>
             <Suspense fallback={<h1>Cargando conferencias...</h1>}>

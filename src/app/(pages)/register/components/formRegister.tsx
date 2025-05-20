@@ -1,40 +1,28 @@
 "use client"
 
-import { useRouter } from "next/navigation"
+import { useFormStatus } from "react-dom"
 import { useUI } from "../../../contexts/UIContext"
-import { CreateUserProps } from "../../../lib/users"
+import { useRouter } from "next/navigation"
+import { createUser } from "@/app/lib/users/create-users"
 
 export default function FormRegister() {
+    const { pending } = useFormStatus()
     const { showToast } = useUI()
     const router = useRouter()
 
-    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        const formData = new FormData(event.currentTarget)
-        const data = Object.fromEntries(
-            formData.entries(),
-        ) as unknown as CreateUserProps & { password_confirmation: string }
-
-        const { password_confirmation, ...rest } = data
-
-        if (rest.password !== password_confirmation)
-            return alert("Las contraseñas no coinciden")
-
-        const response = await fetch("/api/users/create", {
-            method: "POST",
-            body: JSON.stringify(rest),
-            headers: { "Content-Type": "application/json" },
-        })
-        if (response.ok) {
-            showToast.success("Usuario creado con éxito")
-            router.push("/")
-        } else {
-            const { message } = await response.json()
-            showToast.error(message)
-        }
+    const action = (formData: FormData) => {
+        createUser(formData)
+            .then(({ goTo }) => {
+                showToast.success("Registrado con exito")
+                router.push(goTo)
+            })
+            .catch((error) =>
+                showToast.error(error?.message ?? "Error al crear el usuario"),
+            )
     }
-    return (
-        <form onSubmit={onSubmit}>
+
+    return ( 
+        <form action={action}>
             <fieldset>
                 <legend>Datos personales</legend>
                 <label>
@@ -61,7 +49,9 @@ export default function FormRegister() {
                     Confirmar contraseña:
                     <input type="password" name="password_confirmation" />
                 </label>
-                <button className="blue">Registrarme</button>
+                <button className="blue" disabled={pending}>
+                    {pending ? "..." : "Registrarme"}
+                </button>
             </fieldset>
         </form>
     )

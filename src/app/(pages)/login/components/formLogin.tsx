@@ -3,7 +3,7 @@
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
-export default async function FormLogin() {
+export default function FormLogin() {
     const router = useRouter()
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

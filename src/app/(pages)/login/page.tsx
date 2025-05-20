@@ -1,4 +1,4 @@
-import FormLogin from "@/app/components/formLogin"
+import FormLogin from "@/app/(pages)/login/components/formLogin"
 
 export default async function Login() {
     return (

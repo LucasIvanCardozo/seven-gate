@@ -1,4 +1,4 @@
-import FormRegister from "@/app/components/formRegister"
+import FormRegister from "@/app/(pages)/register/components/formRegister"
 
 export default async function Register() {
     return (

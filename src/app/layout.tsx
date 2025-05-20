@@ -5,7 +5,8 @@ import { Geist, Geist_Mono } from "next/font/google"
 import type { Metadata } from "next"
 import type { PropsWithChildren } from "react"
 import { Nav } from "./components/Nav"
-import Providers from "./providers"
+import SessionProvider from "./contexts/SessionProvider"
+import { UIProvider } from "./contexts/UIContext"
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -26,10 +27,12 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
-                <Providers>
-                    <Nav />
-                    <div className="container">{children}</div>
-                </Providers>
+                <SessionProvider>
+                    <UIProvider>
+                        <Nav />
+                        <div className="container">{children}</div>
+                    </UIProvider>
+                </SessionProvider>
             </body>
         </html>
     )

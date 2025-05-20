@@ -19,9 +19,11 @@
 
 @media screen and (max-width: 768px) {
     .nav {
-        background: 0;
         position: fixed;
-        align-items: flex-end;
+        width: auto;
+        right: 0;
+        background: 0;
+        flex-direction: column;
     }
 
     .nav ul {

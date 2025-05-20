@@ -1,8 +1,8 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useUI } from "../contexts/UIContext"
-import { CreateUserProps } from "../lib/users"
+import { useUI } from "../../../contexts/UIContext"
+import { CreateUserProps } from "../../../lib/users"
 
 export default function FormRegister() {
     const { showToast } = useUI()

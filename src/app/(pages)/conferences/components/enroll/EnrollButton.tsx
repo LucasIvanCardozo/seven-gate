@@ -5,13 +5,12 @@ import { Conference } from "@/app/lib/conferences/get.my.conferences"
 import { DayJs } from "@/app/utils/DayJs"
 import { EnrollForm } from "./EnrollForm"
 
-export const EnrollButton = ({
+export const EnrollButton = async ({
     id,
     date,
     title,
 }: Pick<Conference, "id" | "title" | "date">) => {
     const now = DayJs()
-
     if (now.isAfter(DayJs(date))) return null
 
     return (
@@ -21,7 +20,7 @@ export const EnrollButton = ({
                     action={async (data) => {
                         "use server"
 
-                        enrollToConference({ id, data })
+                        return enrollToConference({ id, data })
                     }}
                 />
             </Section>

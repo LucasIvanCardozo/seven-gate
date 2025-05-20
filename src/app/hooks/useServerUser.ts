@@ -1,3 +1,5 @@
+"use server"
+
 import { getServerSession, User } from "next-auth"
 import { authOptions } from "../lib/auth/authOptions"
 

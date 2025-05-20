@@ -1,10 +1,10 @@
 import FormLogin from "@/app/(pages)/login/components/formLogin"
+import { Section } from "@/app/components/Section"
 
 export default async function Login() {
     return (
-        <section>
-            <h2>Login</h2>
+        <Section title="Login">
             <FormLogin />
-        </section>
+        </Section>
     )
 }

@@ -1,5 +1,5 @@
 import type { Conference as ConferenceType } from "@/app/lib/conferences/get.my.conferences"
-import { EnrollButton } from "./EnrollButton"
+import { EnrollButton } from "./enroll/EnrollButton"
 
 export const Conference = (props: ConferenceType) => {
     const { title, roles } = props

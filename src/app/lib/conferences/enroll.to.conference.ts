@@ -1,7 +1,7 @@
 "use server"
 
-import { useServerUser } from "@/app/hooks/useServerUser"
 import { DB } from "../db/db"
+import { getServerUser } from "../users"
 
 export const enrollToConference = async ({
     id,
@@ -10,8 +10,8 @@ export const enrollToConference = async ({
     id: number
     data: FormData
 }) => {
-    const { user } = await useServerUser()
-    if (!user) throw new Error("No user found")
+    const { user } = await getServerUser()
+    if (!user) throw new Error("Necesitas estar logueado")
 
     const role = data.get("role") as string | null
     if (!role) throw new Error("Debes seleccionar un rol 🤫​")
@@ -77,6 +77,6 @@ export const enrollToConference = async ({
             },
         })
     })
-    
+
     return { title }
 }

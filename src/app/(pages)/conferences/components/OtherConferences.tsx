@@ -2,31 +2,17 @@ import { Section } from "@/app/components/Section"
 import { ConferenceList } from "./ConferenceList"
 import { Conference } from "@/app/lib/conferences/get.my.conferences"
 import { DayJs } from "@/app/utils/DayJs"
+import { getOtherConferences } from "@/app/lib/conferences/get.other.conferences"
 
-export const OtherConferences = () => {
-    const conferences: Conference[] = [
-        {
-            id: 1,
-            title: "Congreso 10",
-            roles: [],
-            date: DayJs().add(1, "day").toDate(),
-        },
-    ]
-
-    const conferences2: Conference[] = [
-        {
-            id: 1,
-            title: "Congreso 11",
-            roles: [],
-            date: DayJs().subtract(1, "day").toDate(),
-        },
-    ]
+export const OtherConferences = async () => {
+    
+    const { upcomingConferences, oldConferences } = await getOtherConferences()
 
     return (
         <Section title="Otros congresos" className="hola">
-            <ConferenceList title="Próximos" conferences={conferences} />
+            <ConferenceList title="Próximos" conferences={upcomingConferences} />
             <hr />
-            <ConferenceList title="Pasados" conferences={conferences2} />
+            <ConferenceList title="Pasados" conferences={oldConferences} />
         </Section>
     )
 }

@@ -1,10 +1,12 @@
 import { conferences } from "@prisma/client"
 import { DB } from "../db/db"
+import { getServerUser } from "../users"
 
-export const getMyConferences = async (
-    user_id: number,
-): Promise<GetMyConferences> => {
-    const now = new Date()
+export const getMyConferences = async (): Promise<GetMyConferences> => {
+    const { user } = await getServerUser()
+    if (!user) return { oldConferences: [], upcomingConferences: [] }
+
+    const user_id = +user.id
     const profiles = await DB.profile.findMany({
         where: { user_id },
         select: {
@@ -19,6 +21,7 @@ export const getMyConferences = async (
         roles: profile_roles.map((item) => item.roles.role),
     }))
 
+    const now = new Date()
     const [oldConferences, upcomingConferences] = conferences.reduce(
         (acc, conference) => {
             if (conference.date < now) acc[0].push(conference)
@@ -31,7 +34,6 @@ export const getMyConferences = async (
         oldConferences,
         upcomingConferences,
     }
-   
 }
 
 export type Conference = Pick<conferences, "id" | "date" | "title"> & {

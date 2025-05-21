@@ -10,8 +10,10 @@ export default function FormRegister() {
     const { showToast } = useUI()
     const router = useRouter()
 
-    const action = (formData: FormData) => {
-        createUser(formData)
+    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+
+        createUser(new FormData(event.currentTarget))
             .then(({ goTo }) => {
                 showToast.success("Registrado con exito")
                 router.push(goTo)
@@ -22,7 +24,7 @@ export default function FormRegister() {
     }
 
     return (
-        <form action={action}>
+        <form onSubmit={onSubmit}>
             <fieldset>
                 <legend>Datos personales</legend>
                 <label>

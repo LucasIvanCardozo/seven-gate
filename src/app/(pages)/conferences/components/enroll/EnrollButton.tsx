@@ -6,14 +6,17 @@ import { EnrollForm } from "./EnrollForm"
 
 export const EnrollButton = async ({
     id,
-    date,
     title,
-}: Pick<Conference, "id" | "title" | "date">) => {
+    date,
+    roles,
+}: Pick<Conference, "id" | "title" | "date" | "roles">) => {
     const now = DayJs()
     if (now.isAfter(DayJs(date))) return null
 
+    if (!!roles?.length) return null
+
     return (
-        <Modal opener={<button>Inscribirme</button>}>
+        <Modal opener={<button className="blue">Inscribirme</button>}>
             <Section title={`Inscribirme en: ${title}`}>
                 <EnrollForm id={id} />
             </Section>

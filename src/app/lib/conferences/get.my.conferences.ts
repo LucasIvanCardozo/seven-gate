@@ -18,7 +18,7 @@ export const getMyConferences = async (): Promise<GetMyConferences> => {
 
     const conferences = profiles.map(({ profile_roles, conferences }) => ({
         ...conferences,
-        roles: profile_roles.map((item) => item.roles.role),
+        roles: profile_roles.map((item) => item.roles.role as Role),
     }))
 
     const now = new Date()
@@ -36,8 +36,11 @@ export const getMyConferences = async (): Promise<GetMyConferences> => {
     }
 }
 
+export const roles = ["admin", "oyente", "ponente"] as const
+export type Role = (typeof roles)[number]
+
 export type Conference = Pick<conferences, "id" | "date" | "title"> & {
-    roles?: string[]
+    roles?: Role[]
 }
 export interface GetMyConferences {
     oldConferences: Conference[]

@@ -1,7 +1,15 @@
 "use server"
 
+import { parse } from "@/app/utils/parse"
 import { DB } from "../db/db"
 import { getServerUser } from "../users"
+
+import { z } from "zod"
+
+const { object, string } = z
+const schema = object({
+    role: string().min(1),
+})
 
 export const enrollToConference = async ({
     id,
@@ -10,11 +18,10 @@ export const enrollToConference = async ({
     id: number
     data: FormData
 }) => {
+    const { role } = parse({schema, data})
+
     const { user } = await getServerUser()
     if (!user) throw new Error("Necesitas estar logueado")
-
-    const role = data.get("role") as string | null
-    if (!role) throw new Error("Debes seleccionar un rol 🤫​")
 
     const roleData = await DB.roles.findFirst({
         where: { role },

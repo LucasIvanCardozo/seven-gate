@@ -3,7 +3,7 @@ import { EnrollButton } from "../components/enroll/EnrollButton"
 import { getConference } from "@/app/lib/conferences/get.conference"
 import { redirect } from "next/navigation"
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params
 
     const conference = await getConference(id)

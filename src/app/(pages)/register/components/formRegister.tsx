@@ -3,7 +3,7 @@
 import { useFormStatus } from "react-dom"
 import { useUI } from "../../../contexts/UIContext"
 import { useRouter } from "next/navigation"
-import { createUser } from "@/app/lib/users/create-users"
+import { createUser } from "@/app/lib/users/create.users"
 
 export default function FormRegister() {
     const { pending } = useFormStatus()
@@ -21,7 +21,7 @@ export default function FormRegister() {
             )
     }
 
-    return ( 
+    return (
         <form action={action}>
             <fieldset>
                 <legend>Datos personales</legend>

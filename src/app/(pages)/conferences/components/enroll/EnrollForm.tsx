@@ -4,17 +4,13 @@ import { SubmitButton } from "@/app/components/SubmitButton"
 import { useUI } from "@/app/contexts/UIContext"
 import { enrollToConference } from "@/app/lib/conferences/enroll.to.conference"
 
-export const EnrollForm = ({
-    action,
-}: {
-    action: (data: FormData) => ReturnType<typeof enrollToConference>
-}) => {
+export const EnrollForm = ({ id }: { id: number }) => {
     const { showToast } = useUI()
 
     return (
         <form
             action={async (data) => {
-                action(data)
+                enrollToConference({ id, data })
                     .then(({ title }) => {
                         showToast.success(`Inscrito en: ${title}`)
                         window.location.reload()

@@ -1,3 +1,3 @@
-export * from "./create-users"
+export * from "./create.users"
 export * from "./login.user"
-export * from "./getServerUser"
+export * from "./get.server.user"

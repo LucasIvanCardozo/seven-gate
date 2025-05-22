@@ -16,8 +16,8 @@ export const EnrollForm = ({ id }: { id: number }) => {
             action={async (data) => {
                 enrollToConference({ id, data })
                     .then(({ title }) => {
-                        showToast.success(`Inscrito en: ${title}`)
-                        window.location.reload()
+                        showToast.success(`Inscripto en: ${title}`)
+                        setTimeout(() => window.location.reload(), 1000)
                     })
                     .catch((error) => showToast.error(error.message))
             }}

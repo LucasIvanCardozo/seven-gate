@@ -5,7 +5,7 @@ import { OtherConferences } from "./components/OtherConferences"
 export default function Conferences() {
     return (
         <section>
-            <Suspense fallback={<h1>(fallback)</h1>}>
+            <Suspense fallback={<span>Cargando...</span>}>
                 <MyConferences />
             </Suspense>
             <OtherConferences />

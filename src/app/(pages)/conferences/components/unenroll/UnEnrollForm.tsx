@@ -17,8 +17,8 @@ export const UnEnrollForm = ({
             action={async (data) => {
                 unEnrollToConference({ id, data })
                     .then(() => {
-                        showToast.success("Desinscripto con exito")
-                        window.location.reload()
+                        showToast.success("Desinscripto con éxito")
+                        setTimeout(() => window.location.reload(), 1000)
                     })
                     .catch((error) => showToast.error(error.message))
             }}

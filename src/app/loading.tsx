@@ -1,7 +1,5 @@
-export default async function Loading() {
-    return (
-        <main>
-            <h1>(Circulo de carga)</h1>
-        </main>
-    )
+import { Loading } from "./components/Loading"
+
+export default async function () {
+    return <Loading />
 }

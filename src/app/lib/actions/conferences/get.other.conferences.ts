@@ -1,8 +1,9 @@
-import { DB } from "../db/db"
+import { DB } from "../../db/db"
+import createAction from "../createActions"
 import { getServerUser } from "../users"
 import { Conference } from "./get.my.conferences"
 
-export const getOtherConferences = async () => {
+export const getOtherConferences = createAction(null, async () => {
     const { user } = await getServerUser()
 
     const conferences = await DB.conferences.findMany({
@@ -30,4 +31,4 @@ export const getOtherConferences = async () => {
         oldConferences,
         upcomingConferences,
     }
-}
+})

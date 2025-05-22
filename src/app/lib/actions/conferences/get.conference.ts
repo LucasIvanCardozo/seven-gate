@@ -1,12 +1,19 @@
 import { redirect } from "next/navigation"
-import { DB } from "../db/db"
+import { DB } from "../../db/db"
 import { getServerUser } from "../users"
 import { Conference, Role } from "./get.my.conferences"
+import createAction from "../createActions"
+import z from "zod"
 
-export const getConference = async (
-    id: number | string,
-): Promise<Conference> => {
-    try {
+const { object, number } = z
+
+const schema = object({
+    id: number().positive(),
+})
+
+export const getConference = createAction(
+    schema,
+    async ({ id }): Promise<Conference | null> => {
         const { user } = await getServerUser()
         if (!user) return await getBaseConference(id)
 
@@ -33,10 +40,8 @@ export const getConference = async (
             ...conferences,
             roles: profile_roles.map((item) => item.roles.role as Role),
         }
-    } catch (error) {
-        redirect("/conferences")
-    }
-}
+    },
+)
 
 export const getBaseConference = (id: number | string) =>
     DB.conferences.findFirstOrThrow({

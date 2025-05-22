@@ -2,9 +2,10 @@
 
 import { SubmitButton } from "@/app/components/SubmitButton"
 import { useUI } from "@/app/contexts/UIContext"
-import { enrollToConference } from "@/app/lib/conferences/enroll.to.conference"
-import { Role } from "@/app/lib/conferences/get.my.conferences"
+import { enrollToConference } from "@/app/lib/actions/conferences/enroll.to.conference"
+import { Role } from "@/app/lib/actions/conferences/get.my.conferences"
 import { capitalize } from "@/app/utils/capitalize"
+import { formToData } from "@/app/utils/formToData"
 
 export const EnrollForm = ({ id }: { id: number }) => {
     const { showToast } = useUI()
@@ -13,13 +14,17 @@ export const EnrollForm = ({ id }: { id: number }) => {
 
     return (
         <form
-            action={async (data) => {
-                enrollToConference({ id, data })
-                    .then(({ title }) => {
-                        showToast.success(`Inscripto en: ${title}`)
-                        setTimeout(() => window.location.reload(), 1000)
-                    })
-                    .catch((error) => showToast.error(error.message))
+            action={async (formData) => {
+                const response = await enrollToConference({
+                    id,
+                    ...formToData(formData),
+                })
+
+                if (!response.success) showToast.error(response.error)
+                else {
+                    setTimeout(() => window.location.reload(), 1000)
+                    showToast.success(`Inscripto en: ${response.data.title}`)
+                }
             }}
         >
             {validRoles.map((role) => (

@@ -1,13 +1,22 @@
 import React from "react"
 import { EnrollButton } from "../components/enroll/EnrollButton"
-import { getConference } from "@/app/lib/conferences/get.conference"
+import { getConference } from "@/app/lib/actions/conferences/get.conference"
 import { redirect } from "next/navigation"
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+export default async function Page({
+    params,
+}: {
+    params: Promise<{ id: string }>
+}) {
     const { id } = await params
 
-    const conference = await getConference(id)
-    if (!conference) redirect("/conferences")
+    const response = await getConference({ id: +id })
+    if (!response.success)
+        return redirect("/conferences")
+    
+    const conference = response.data
+    if (!conference)
+        return redirect("/conferences")
 
     return (
         <div>

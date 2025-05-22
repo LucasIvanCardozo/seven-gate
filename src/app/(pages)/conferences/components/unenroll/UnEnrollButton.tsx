@@ -1,6 +1,6 @@
 import { Modal } from "@/app/components/Modal"
 import { Section } from "@/app/components/Section"
-import { Conference } from "@/app/lib/conferences/get.my.conferences"
+import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import { DayJs } from "@/app/utils/DayJs"
 import React from "react"
 import { UnEnrollForm } from "./UnEnrollForm"

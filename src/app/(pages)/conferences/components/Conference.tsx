@@ -1,4 +1,4 @@
-import type { Conference as ConferenceType } from "@/app/lib/conferences/get.my.conferences"
+import type { Conference as ConferenceType } from "@/app/lib/actions/conferences/get.my.conferences"
 import { EnrollButton } from "./enroll/EnrollButton"
 import { UnEnrollButton } from "./unenroll/UnEnrollButton"
 import Link from "next/link"

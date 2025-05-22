@@ -1,9 +1,14 @@
 import { Section } from "@/app/components/Section"
-import { getMyConferences } from "@/app/lib/conferences/get.my.conferences"
+import { getMyConferences } from "@/app/lib/actions/conferences/get.my.conferences"
 import { ConferenceList } from "./ConferenceList"
 
 export const MyConferences = async () => {
-    const { upcomingConferences, oldConferences } = await getMyConferences()
+    const response = await getMyConferences()
+
+    if (!response.success)
+        return null
+
+    const { upcomingConferences, oldConferences } = response.data
 
     return (
         <Section title="Mis congresos">

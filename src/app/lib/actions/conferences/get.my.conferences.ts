@@ -1,8 +1,9 @@
 import { conferences } from "@prisma/client"
-import { DB } from "../db/db"
+import { DB } from "../../db/db"
 import { getServerUser } from "../users"
+import createAction from "../createActions"
 
-export const getMyConferences = async (): Promise<GetMyConferences> => {
+export const getMyConferences = createAction(null, async () => {
     const { user } = await getServerUser()
     if (!user) return { oldConferences: [], upcomingConferences: [] }
 
@@ -34,7 +35,7 @@ export const getMyConferences = async (): Promise<GetMyConferences> => {
         oldConferences,
         upcomingConferences,
     }
-}
+})
 
 export const roles = ["admin", "oyente", "ponente"] as const
 export type Role = (typeof roles)[number]

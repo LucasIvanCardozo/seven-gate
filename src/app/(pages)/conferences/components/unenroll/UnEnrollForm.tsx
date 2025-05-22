@@ -2,8 +2,8 @@
 
 import { SubmitButton } from "@/app/components/SubmitButton"
 import { useUI } from "@/app/contexts/UIContext"
-import { Conference } from "@/app/lib/conferences/get.my.conferences"
-import { unEnrollToConference } from "@/app/lib/conferences/un.enroll.to.conference"
+import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
+import { unEnrollToConference } from "@/app/lib/actions/conferences/un.enroll.to.conference"
 import React from "react"
 
 export const UnEnrollForm = ({
@@ -14,13 +14,17 @@ export const UnEnrollForm = ({
 
     return (
         <form
-            action={async (data) => {
-                unEnrollToConference({ id, data })
-                    .then(() => {
-                        showToast.success("Desinscripto con éxito")
-                        setTimeout(() => window.location.reload(), 1000)
-                    })
-                    .catch((error) => showToast.error(error.message))
+            action={async (formData) => {
+                const response = await unEnrollToConference({
+                    id,
+                    roles: Array.from(formData.getAll("roles")),
+                })
+
+                if (!response.success) showToast.error(response.error)
+                else {
+                    showToast.success("Desinscripto con éxito")
+                    setTimeout(() => window.location.reload(), 1000)
+                }
             }}
         >
             {roles?.map((item) => (

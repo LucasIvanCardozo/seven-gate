@@ -26,9 +26,7 @@ export const Nav = () => {
                     {user ? (
                         <Link href="/profile">{user.name}</Link>
                     ) : (
-                        <>
-                            <Link href="/login">Login</Link>
-                        </>
+                        <Link href="/login">Login</Link>
                     )}
                     <Link href="/conferences">Congresos</Link>
                 </ul>

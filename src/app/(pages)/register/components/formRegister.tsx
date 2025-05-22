@@ -3,7 +3,8 @@
 import { useFormStatus } from "react-dom"
 import { useUI } from "../../../contexts/UIContext"
 import { useRouter } from "next/navigation"
-import { createUser } from "@/app/lib/users/create.users"
+import { createUser } from "@/app/lib/actions/users/create.users"
+import { formToData } from "@/app/utils/formToData"
 
 export default function FormRegister() {
     const { pending } = useFormStatus()
@@ -12,15 +13,17 @@ export default function FormRegister() {
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        const formData = new FormData(event.currentTarget)
 
-        createUser(new FormData(event.currentTarget))
-            .then(({ goTo }) => {
-                showToast.success("Registrado con exito")
-                router.push(goTo)
-            })
-            .catch((error) =>
-                showToast.error(error?.message ?? "Error al crear el usuario"),
-            )
+        if (formData.get("password") !== formData.get("password_confirmation"))
+            return showToast.error("Las contraseñas no coinciden")
+
+        const response = await createUser(formToData(formData))
+
+        if (!response.success) return showToast.error(response.error)
+
+        showToast.success("Registrado con exito")
+        router.push(response.data.goTo)
     }
 
     return (
@@ -29,27 +32,31 @@ export default function FormRegister() {
                 <legend>Datos personales</legend>
                 <label>
                     Nombre:
-                    <input type="text" name="name" />
+                    <input required type="text" name="name" />
                 </label>
                 <label>
                     Apellido:
-                    <input type="text" name="lastname" />
+                    <input required type="text" name="lastname" />
                 </label>
                 <label>
                     Teléfono:
-                    <input type="tel" name="phone" />
+                    <input required type="tel" name="phone" />
                 </label>
                 <label>
                     Email:
-                    <input type="email" name="email" />
+                    <input required type="email" name="email" />
                 </label>
                 <label>
                     Contraseña:
-                    <input type="password" name="password" />
+                    <input required type="password" name="password" />
                 </label>
                 <label>
                     Confirmar contraseña:
-                    <input type="password" name="password_confirmation" />
+                    <input
+                        required
+                        type="password"
+                        name="password_confirmation"
+                    />
                 </label>
                 <button className="blue" disabled={pending}>
                     {pending ? "..." : "Registrarme"}

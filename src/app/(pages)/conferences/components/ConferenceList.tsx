@@ -1,6 +1,6 @@
 import { Grid } from "@/app/components/Grid"
 import { Section } from "@/app/components/Section"
-import type { Conference as ConferenceType } from "@/app/lib/conferences/get.my.conferences"
+import type { Conference as ConferenceType } from "@/app/lib/actions/conferences/get.my.conferences"
 import React, { ComponentProps } from "react"
 import { Conference } from "./Conference"
 

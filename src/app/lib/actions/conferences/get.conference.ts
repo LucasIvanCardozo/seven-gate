@@ -11,39 +11,54 @@ const schema = object({
     id: number().positive(),
 })
 
-export const getConference = createAction(
-    schema,
-    async ({ id }): Promise<Conference | null> => {
-        const { user } = await getServerUser()
-        if (!user) return await getBaseConference(id)
+export const getConference = createAction(schema, async ({ id }) => {
+    const { user } = await getServerUser()
+    if (!user) return await getBaseConference(id)
 
-        const profile = await DB.profile.findFirst({
-            where: {
-                user_id: +user.id,
-                conference_id: +id,
-            },
-            include: {
-                profile_roles: {
-                    include: {
-                        roles: true,
-                    },
+    const profile = await DB.profile.findFirst({
+        where: {
+            user_id: +user.id,
+            conference_id: +id,
+        },
+        include: {
+            profile_roles: {
+                include: {
+                    roles: true,
                 },
-                conferences: true,
             },
-        })
+            conferences: true,
+        },
+    })
 
-        if (!profile) return await getBaseConference(id)
+    if (!profile) return await getBaseConference(id)
 
-        const { conferences, profile_roles } = profile
+    const { conferences, profile_roles } = profile
 
-        return {
-            ...conferences,
-            roles: profile_roles.map((item) => item.roles.role as Role),
-        }
-    },
-)
+    return {
+        ...conferences,
+        roles: profile_roles.map((item) => item.roles.role as Role),
+    }
+})
 
 export const getBaseConference = (id: number | string) =>
     DB.conferences.findFirstOrThrow({
         where: { id: +id },
     })
+
+export const getConferenceAdmins = createAction(schema, ({ id }) =>
+    DB.profile.findMany({
+        where: {
+            conference_id: +id,
+            profile_roles: {
+                some: {
+                    roles: {
+                        role: "admin",
+                    },
+                },
+            },
+        },
+        include: {
+            users: { select: { id: true, name: true, lastname: true } },
+        },
+    }),
+)

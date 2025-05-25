@@ -9,12 +9,12 @@ export const UnEnrollButton = (props: Conference) => {
     const { date, title, roles } = props
 
     if (!roles?.length) return null
+  
+    const isAdmin = roles.some((role) => role === "admin")
+    if (isAdmin) return null
 
     const now = DayJs()
     if (now.isAfter(DayJs(date))) return null
-
-    const isAdmin = roles.some((role) => role === "admin")
-    if (isAdmin) return null
 
     return (
         <Modal opener={<button className="red">Desinscribirme</button>}>

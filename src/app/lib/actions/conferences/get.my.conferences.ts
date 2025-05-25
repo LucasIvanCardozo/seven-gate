@@ -12,7 +12,7 @@ export const getMyConferences = createAction(null, async () => {
         where: { user_id },
         select: {
             profile_roles: { include: { roles: true } },
-            conferences: { select: { id: true, date: true, title: true } },
+            conferences: true,
         },
         orderBy: { conferences: { date: "asc" } },
     })
@@ -40,8 +40,8 @@ export const getMyConferences = createAction(null, async () => {
 export const roles = ["admin", "oyente", "ponente"] as const
 export type Role = (typeof roles)[number]
 
-export type Conference = Pick<conferences, "id" | "date" | "title"> & {
-    roles?: Role[]
+export type Conference = conferences & {
+    roles?: Role[] | null
 }
 export interface GetMyConferences {
     oldConferences: Conference[]

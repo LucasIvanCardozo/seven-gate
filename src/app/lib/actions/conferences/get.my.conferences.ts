@@ -43,7 +43,7 @@ export const roles = ["admin", "oyente", "ponente", "evaluador"] as const
 export type Role = (typeof roles)[number]
 
 export type Conference = conferences & {
-    profileId: number | null
+    profileId?: number | null
     roles?: Role[] | null
 }
 export interface GetMyConferences {

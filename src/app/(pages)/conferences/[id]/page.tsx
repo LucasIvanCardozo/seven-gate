@@ -13,6 +13,7 @@ import { capitalize } from "@/app/utils/capitalize"
 import { EvaluatorSection } from "./components/EvaluatorSection"
 import { Info } from "./components/Info"
 import { Stats } from "./components/Stats"
+import { AdminSection } from "./components/AdminSection"
 
 export default async function Page({
     params,
@@ -29,8 +30,10 @@ export default async function Page({
     return (
         <main>
             <img src={logo_url} />
-            
+
             <Info {...data} />
+
+            <AdminSection {...data} />
 
             <EvaluatorSection {...data} />
 

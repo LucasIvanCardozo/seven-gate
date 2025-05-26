@@ -13,7 +13,7 @@ const schema = object({
 
 export const getConference = createAction(schema, async ({ id }) => {
     const { user } = await getServerUser()
-    if (!user) return await getBaseConference(id)
+    if (!user) return getBaseConference(id)
 
     const profile = await DB.profile.findFirst({
         where: {
@@ -30,20 +30,28 @@ export const getConference = createAction(schema, async ({ id }) => {
         },
     })
 
-    if (!profile) return await getBaseConference(id)
+    if (!profile) return getBaseConference(id)
 
-    const { conferences, profile_roles } = profile
+    const { id: profileId, conferences, profile_roles } = profile
 
     return {
         ...conferences,
+        profileId,
         roles: profile_roles.map((item) => item.roles.role as Role),
     }
 })
 
-export const getBaseConference = (id: number | string) =>
-    DB.conferences.findFirstOrThrow({
+export const getBaseConference = async (id: number | string) => {
+    const conference = await DB.conferences.findFirstOrThrow({
         where: { id: +id },
     })
+
+    return {
+        ...conference,
+        profileId: null,
+        roles: null
+    }
+}
 
 export const getConferenceAdmins = createAction(schema, ({ id }) =>
     DB.profile.findMany({

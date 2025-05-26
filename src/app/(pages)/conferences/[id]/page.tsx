@@ -8,6 +8,11 @@ import { redirect } from "next/navigation"
 import { Axis } from "./components/Axis"
 import { Header } from "@/app/components/Header"
 import { MyPresentations } from "./components/MyPresentations"
+import { DayJs } from "@/app/utils/DayJs"
+import { capitalize } from "@/app/utils/capitalize"
+import { EvaluatorSection } from "./components/EvaluatorSection"
+import { Info } from "./components/Info"
+import { Stats } from "./components/Stats"
 
 export default async function Page({
     params,
@@ -16,41 +21,24 @@ export default async function Page({
 }) {
     const id = +(await params).id
 
-    const { data: conference } = await getConference({ id })
-    if (!conference) return redirect("/conferences")
+    const { data } = await getConference({ id })
+    if (!data) return redirect("/conferences")
 
-    const { data: admins } = await getConferenceAdmins({ id })
-
-    const { title, logo_url } = conference
+    const { logo_url } = data
 
     return (
         <main>
             <img src={logo_url} />
-            <Section
-                title={
-                    <Header>
-                        <h2>{title}</h2>
-                        <EnrollButton {...conference} />
-                    </Header>
-                }
-            >
-                {admins && (
-                    <div>
-                        <h3>Administradores: </h3>
-                        <ul>
-                            {admins.map((item) => (
-                                <li key={item.id}>{item.users.name}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-            </Section>
+            
+            <Info {...data} />
 
-            <MyPresentations {...conference} />
+            <EvaluatorSection {...data} />
 
-            <Axis {...conference} />
+            <MyPresentations {...data} />
 
-            <Section title="Stats"></Section>
+            <Axis {...data} />
+
+            <Stats {...data} />
         </main>
     )
 }

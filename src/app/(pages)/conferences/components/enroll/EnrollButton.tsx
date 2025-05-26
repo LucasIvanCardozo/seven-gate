@@ -15,8 +15,6 @@ export const EnrollButton = async ({
 
     if (!!roles?.length) return null
 
-
-
     return (
         <Modal opener={<button className="blue">Inscribirme</button>}>
             <Section title={`Inscribirme en: ${title}`}>

@@ -19,7 +19,7 @@ export const getOtherConferences = createAction(null, async () => {
     })
 
     const now = new Date()
-    const [oldConferences, upcomingConferences] = conferences.reduce(
+    const [old, upcoming] = conferences.reduce(
         (acc, conference) => {
             if (conference.date < now) acc[0].push(conference)
             else acc[1].push(conference)
@@ -28,7 +28,7 @@ export const getOtherConferences = createAction(null, async () => {
         [[], []] as [Conference[], Conference[]],
     )
     return {
-        oldConferences,
-        upcomingConferences,
+        old,
+        upcoming,
     }
 })

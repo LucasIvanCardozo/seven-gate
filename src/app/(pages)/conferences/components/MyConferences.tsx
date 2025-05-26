@@ -3,21 +3,17 @@ import { getMyConferences } from "@/app/lib/actions/conferences/get.my.conferenc
 import { ConferenceList } from "./ConferenceList"
 
 export const MyConferences = async () => {
-    const response = await getMyConferences()
+    const { data } = await getMyConferences()
 
-    if (!response.success)
-        return null
+    if (!data) return null
 
-    const { upcomingConferences, oldConferences } = response.data
+    const { upcoming, old } = data
 
     return (
         <Section title="Mis congresos">
-            <ConferenceList
-                title="Próximos"
-                conferences={upcomingConferences}
-            />
+            <ConferenceList title="Próximos" conferences={upcoming} />
             <hr />
-            <ConferenceList title="Pasados" conferences={oldConferences} />
+            <ConferenceList title="Pasados" conferences={old} />
         </Section>
     )
 }

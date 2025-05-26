@@ -5,25 +5,27 @@ import createAction from "../createActions"
 
 export const getMyConferences = createAction(null, async () => {
     const { user } = await getServerUser()
-    if (!user) return { oldConferences: [], upcomingConferences: [] }
+    if (!user) return { old: [], upcoming: [] }
 
     const user_id = +user.id
     const profiles = await DB.profile.findMany({
         where: { user_id },
         select: {
+            id: true,
             profile_roles: { include: { roles: true } },
             conferences: true,
         },
         orderBy: { conferences: { date: "asc" } },
     })
 
-    const conferences = profiles.map(({ profile_roles, conferences }) => ({
+    const conferences = profiles.map(({ id: profileId, profile_roles, conferences }) => ({
         ...conferences,
+        profileId,
         roles: profile_roles.map((item) => item.roles.role as Role),
     }))
 
     const now = new Date()
-    const [oldConferences, upcomingConferences] = conferences.reduce(
+    const [old, upcoming] = conferences.reduce(
         (acc, conference) => {
             if (conference.date < now) acc[0].push(conference)
             else acc[1].push(conference)
@@ -32,15 +34,16 @@ export const getMyConferences = createAction(null, async () => {
         [[], []] as [Conference[], Conference[]],
     )
     return {
-        oldConferences,
-        upcomingConferences,
+        old,
+        upcoming,
     }
 })
 
-export const roles = ["admin", "oyente", "ponente"] as const
+export const roles = ["admin", "oyente", "ponente", "evaluador"] as const
 export type Role = (typeof roles)[number]
 
 export type Conference = conferences & {
+    profileId: number | null
     roles?: Role[] | null
 }
 export interface GetMyConferences {

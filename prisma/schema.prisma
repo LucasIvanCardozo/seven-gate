@@ -43,6 +43,13 @@ model conferences {
   winner_types            winner_types[]
 }
 
+enum State {
+  pending
+  approved
+  approved_with_comments
+  rejected
+}
+
 model presentations {
   id                                                  Int       @id @default(autoincrement())
   presenter_profile_id                                Int
@@ -50,7 +57,7 @@ model presentations {
   axis_id                                             Int
   url                                                 String    @db.VarChar
   comments                                            String?   @db.VarChar
-  state                                               String    @default("pending") @db.VarChar
+  state                                               State    @default(pending)
   created_at                                          DateTime? @default(now()) @db.Timestamp(6)
   axis                                                axis      @relation(fields: [axis_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   profile_presentations_evaluator_profile_idToprofile profile?  @relation("presentations_evaluator_profile_idToprofile", fields: [evaluator_profile_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

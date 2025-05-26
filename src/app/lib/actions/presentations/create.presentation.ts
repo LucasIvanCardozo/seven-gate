@@ -5,6 +5,7 @@ import createAction from "../createActions"
 import { uploadFile } from "../../cloudinary/cloudinary"
 import { DB } from "../../db/db"
 import { getServerUser } from "../users"
+import { DayJs } from "@/app/utils/DayJs"
 
 const { object, number, instanceof: iof } = z
 
@@ -35,9 +36,18 @@ export const createPresentation = createAction(
                 user_id: +user.id,
                 conference_id,
             },
+            include: {
+                conferences: {
+                    select: {
+                        presentation_limit_date: true,
+                    },
+                },
+            },
         })
 
         if (!profile) throw new Error("No estas inscripto en la conferencia")
+        if (DayJs().isAfter(profile.conferences.presentation_limit_date))
+            throw new Error("Ya no puedes subir presentaciones")
 
         const presenter_profile_id = profile.id
 

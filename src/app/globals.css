@@ -62,6 +62,21 @@ h6 {
     display: none;
 }
 
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+
+button.green {
+    background-color: var(--color-comp-energy-green)
+}
+
+select {
+    all: unset;
+    
+}
+
 @media (max-width: 768px) {
     .only-mobile {
         display: block;

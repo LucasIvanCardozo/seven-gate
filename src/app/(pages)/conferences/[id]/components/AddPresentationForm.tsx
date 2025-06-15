@@ -2,15 +2,11 @@
 
 import { SubmitButton } from "@/app/components/SubmitButton"
 import { useUI } from "@/app/contexts/UIContext"
+import { AxisDTO } from "@/app/lib/actions/axis/get.by.conference"
+import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import { createPresentation } from "@/app/lib/actions/presentations/create.presentation"
 
-export const AddPresentationForm = ({
-    id,
-    axisId,
-}: {
-    id: number
-    axisId: number
-}) => {
+export const AddPresentationForm = (props: { axis_id: AxisDTO["id"] }) => {
     const { showToast } = useUI()
 
     return (
@@ -19,8 +15,7 @@ export const AddPresentationForm = ({
                 const file = formData.get("file") as File
 
                 const { error } = await createPresentation({
-                    conference_id: id,
-                    axis_id: axisId,
+                    ...props,
                     file,
                 })
 

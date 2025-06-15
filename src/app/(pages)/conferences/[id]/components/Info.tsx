@@ -4,17 +4,23 @@ import { capitalize } from "@/app/utils/capitalize"
 import { DayJs } from "@/app/utils/DayJs"
 import { EnrollButton } from "../../components/enroll/EnrollButton"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
-import { getConferenceAdmins } from "@/app/lib/actions/conferences/get.conference"
+import {
+    getConference,
+    getConferenceAdmins,
+} from "@/app/lib/actions/conferences/get.conference"
 
-export const Info = (props: Conference) => {
-    const { title, presentation_limit_date } = props
+export const Info = async ({ id }: Pick<Conference, "id">) => {
+    const { data } = await getConference({ id })
+    if (!data) return null
+
+    const { title, presentation_limit_date } = data
 
     return (
         <Section
             title={
                 <Header>
                     <h2>{title}</h2>
-                    <EnrollButton {...props} />
+                    <EnrollButton {...data} />
                 </Header>
             }
         >
@@ -25,7 +31,7 @@ export const Info = (props: Conference) => {
                 </b>
             </div>
 
-            <Admins {...props} />
+            <Admins id={id} />
         </Section>
     )
 }

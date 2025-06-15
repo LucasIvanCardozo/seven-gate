@@ -3,13 +3,14 @@ import { Section } from "@/app/components/Section"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import { DayJs } from "@/app/utils/DayJs"
 import { EnrollForm } from "./EnrollForm"
+import { getConference } from "@/app/lib/actions/conferences/get.conference"
 
-export const EnrollButton = async ({
-    id,
-    title,
-    date,
-    roles,
-}: Pick<Conference, "id" | "title" | "date" | "roles">) => {
+export const EnrollButton = async ({ id }: Pick<Conference, "id">) => {
+    const { data } = await getConference({ id })
+    if (!data) return null
+
+    const { date, title, roles } = data
+
     const now = DayJs()
     if (now.isAfter(DayJs(date))) return null
 

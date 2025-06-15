@@ -2,7 +2,7 @@ import { Header } from "@/app/components/Header"
 import { Section } from "@/app/components/Section"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import { getPresentationsForEvaluator } from "@/app/lib/actions/presentations/get.presentations.for.evaluator"
-import { Downloader } from "./Downloader"
+import { Downloader } from "../Downloader"
 import { EvaluatorForm } from "./EvaluatorForm"
 
 export const EvaluatorSection = async ({

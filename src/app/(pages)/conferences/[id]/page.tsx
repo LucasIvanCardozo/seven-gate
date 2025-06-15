@@ -1,19 +1,11 @@
-import { Section } from "@/app/components/Section"
-import { EnrollButton } from "../components/enroll/EnrollButton"
-import {
-    getConference,
-    getConferenceAdmins,
-} from "@/app/lib/actions/conferences/get.conference"
+import { getConference } from "@/app/lib/actions/conferences/get.conference"
 import { redirect } from "next/navigation"
-import { Axis } from "./components/Axis"
-import { Header } from "@/app/components/Header"
-import { MyPresentations } from "./components/MyPresentations"
-import { DayJs } from "@/app/utils/DayJs"
-import { capitalize } from "@/app/utils/capitalize"
-import { EvaluatorSection } from "./components/EvaluatorSection"
+import { AdminSection } from "./components/Admin/AdminSection"
+import { AxisSection } from "./components/Axis/AxisSection"
+import { EvaluatorSection } from "./components/Evaluator/EvaluatorSection"
 import { Info } from "./components/Info"
+import { MyPresentations } from "./components/MyPresentations"
 import { Stats } from "./components/Stats"
-import { AdminSection } from "./components/AdminSection"
 
 export default async function Page({
     params,
@@ -31,15 +23,15 @@ export default async function Page({
         <main>
             <img src={logo_url} />
 
-            <Info {...data} />
+            <Info id={id} />
 
-            <AdminSection {...data} />
+            <AdminSection id={id} />
 
             <EvaluatorSection {...data} />
 
             <MyPresentations {...data} />
 
-            <Axis {...data} />
+            <AxisSection {...data} />
 
             <Stats {...data} />
         </main>

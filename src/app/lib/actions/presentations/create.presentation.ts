@@ -6,6 +6,8 @@ import { uploadFile } from "../../cloudinary/cloudinary"
 import { DB } from "../../db/db"
 import { getServerUser } from "../users"
 import { DayJs } from "@/app/utils/DayJs"
+import { getAxis } from "../axis/get.axis"
+import { getProfile } from "../profiles/get.profile"
 
 const { object, number, instanceof: iof } = z
 
@@ -20,30 +22,21 @@ const fileSchema = iof(File)
     )
 
 const schema = object({
-    conference_id: number().positive(),
     axis_id: number().positive(),
     file: fileSchema,
 })
 
 export const createPresentation = createAction(
     schema,
-    async ({ file, conference_id, axis_id }) => {
+    async ({ file, axis_id }) => {
         const { user } = await getServerUser()
         if (!user) throw new Error("Necesitas estar logueado")
 
-        const profile = await DB.profile.findFirst({
-            where: {
-                user_id: +user.id,
-                conference_id,
-            },
-            include: {
-                conferences: {
-                    select: {
-                        presentation_limit_date: true,
-                    },
-                },
-            },
-        })
+        const { data: axis } = await getAxis({ id: axis_id })
+        if (!axis) throw new Error("No se pudo encontrar el eje")
+
+        const { conference_id } = axis
+        const { data: profile } = await getProfile({ conference_id })
 
         if (!profile) throw new Error("No estas inscripto en la conferencia")
         if (DayJs().isAfter(profile.conferences.presentation_limit_date))

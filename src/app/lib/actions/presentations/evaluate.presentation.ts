@@ -54,15 +54,15 @@ export const evaluatePresentation = createAction(
             users: { id: userId, email, name },
         } = profile
 
-        await sendEmail({
-            to: email,
-            subject: "Tu presentación ha sido evaluada",
-            html: `<p>
-                        El evaluador del eje "${axis.title}" ha evaluado tu ponencia y ha cambiado su estado a <b>${await parseState(state)}</b>
-                    </p> 
-                    ${comments ? `<p><b>Comentarios: </b>${comments}</p>` : ""}
-            `,
-        })
+        // await sendEmail({
+        //     to: email,
+        //     subject: "Tu presentación ha sido evaluada",
+        //     html: `<p>
+        //                 El evaluador del eje "${axis.title}" ha evaluado tu ponencia y ha cambiado su estado a <b>${await parseState(state)}</b>
+        //             </p>
+        //             ${comments ? `<p><b>Comentarios: </b>${comments}</p>` : ""}
+        //     `,
+        // })
     },
 )
 

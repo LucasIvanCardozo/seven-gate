@@ -18,11 +18,13 @@ export const getMyConferences = createAction(null, async () => {
         orderBy: { conferences: { date: "asc" } },
     })
 
-    const conferences = profiles.map(({ id: profileId, profile_roles, conferences }) => ({
-        ...conferences,
-        profileId,
-        roles: profile_roles.map((item) => item.roles.role as Role),
-    }))
+    const conferences = profiles.map(
+        ({ id: profileId, profile_roles, conferences }) => ({
+            ...conferences,
+            profileId,
+            roles: profile_roles.map((item) => item.roles.role as Role),
+        }),
+    )
 
     const now = new Date()
     const [old, upcoming] = conferences.reduce(

@@ -1,0 +1,12 @@
+.approved {
+    border: 2px solid green;
+}
+.approved_with_comments {
+    border: 2px solid green;
+}
+.pending {
+    border: 2px solid rgb(255, 166, 0);
+}
+.rejected {
+    border: 2px solid red;
+}

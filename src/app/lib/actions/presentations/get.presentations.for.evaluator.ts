@@ -6,15 +6,19 @@ import { presentations } from "@prisma/client"
 
 const { object, number } = z
 const schema = object({
+    conferenceId: number().positive(),
     profileId: number().positive(),
 })
 
 export const getPresentationsForEvaluator = createAction(
     schema,
-    async ({ profileId }) =>
+    async ({ conferenceId, profileId }) =>
         DB.presentations.findMany({
             where: {
-                evaluator_profile_id: profileId,
+                profile_presentations_evaluator_profile_idToprofile: {
+                    conference_id: conferenceId,
+                    id: profileId
+                },
                 state: "pending",
             },
             include: {

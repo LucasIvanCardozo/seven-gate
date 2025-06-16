@@ -1,3 +1,4 @@
+"use server"
 import { Section } from "@/app/components/Section"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import { NewRoleForm } from "./NewRoleForm"

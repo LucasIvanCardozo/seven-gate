@@ -9,14 +9,15 @@ datasource db {
 }
 
 model axis {
-  id                   Int             @id @default(autoincrement())
-  conference_id        Int
-  organizer_profile_id Int?
-  is_voting            Boolean?        @default(false)
-  title                String          @db.VarChar
-  conferences          conferences     @relation(fields: [conference_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  profile              profile?        @relation(fields: [organizer_profile_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  presentations        presentations[]
+  id                         Int                          @id @default(autoincrement())
+  conference_id              Int
+  organizer_profile_id       Int?
+  is_voting                  Boolean?                     @default(false)
+  title                      String                       @db.VarChar
+  conferences                conferences                  @relation(fields: [conference_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  profile                    profile?                     @relation(fields: [organizer_profile_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  presentations              presentations[]
+  evaluator_axis_assignments evaluator_axis_assignments[]
 }
 
 model circular {
@@ -67,18 +68,19 @@ model presentations {
 }
 
 model profile {
-  id                                                        Int             @id @default(autoincrement())
+  id                                                        Int                          @id @default(autoincrement())
   user_id                                                   Int
   conference_id                                             Int
-  attendance_date                                           DateTime?       @db.Timestamp(6)
-  created_at                                                DateTime?       @default(now()) @db.Timestamp(6)
+  attendance_date                                           DateTime?                    @db.Timestamp(6)
+  created_at                                                DateTime?                    @default(now()) @db.Timestamp(6)
   axis                                                      axis[]
-  presentations_presentations_evaluator_profile_idToprofile presentations[] @relation("presentations_evaluator_profile_idToprofile")
-  presentations_presentations_presenter_profile_idToprofile presentations[] @relation("presentations_presenter_profile_idToprofile")
-  conferences                                               conferences     @relation(fields: [conference_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users                                                     users           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  presentations_presentations_evaluator_profile_idToprofile presentations[]              @relation("presentations_evaluator_profile_idToprofile")
+  presentations_presentations_presenter_profile_idToprofile presentations[]              @relation("presentations_presenter_profile_idToprofile")
+  conferences                                               conferences                  @relation(fields: [conference_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users                                                     users                        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   profile_roles                                             profile_roles[]
   votes                                                     votes[]
+  evaluator_axis_assignments                                evaluator_axis_assignments[]
 
   @@unique([user_id, conference_id])
 }
@@ -153,4 +155,12 @@ model winners {
   winner_type_id  Int
   presentations   presentations @relation(fields: [presentation_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   winner_types    winner_types  @relation(fields: [winner_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model evaluator_axis_assignments {
+  id         Int     @id @default(autoincrement())
+  profile_id Int
+  axis_id    Int
+  profile    profile @relation(fields: [profile_id], references: [id])
+  axis       axis    @relation(fields: [axis_id], references: [id])
 }

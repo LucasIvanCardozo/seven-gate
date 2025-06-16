@@ -1,8 +1,10 @@
+"use server"
+
 import { Header } from "@/app/components/Header"
 import { AxisDTO } from "@/app/lib/actions/axis/get.by.conference"
-import { AddPresentation } from "../AddPresentation"
-import { AxisDeleteButton } from "./AxisDeleteButton"
-import { AxisEditButton } from "./AxisEditButton"
+import { AddPresentation } from "../speaker/addPresentation/AddPresentation"
+import { DeleteAxisButton } from "./deleteAxis/deleteAxisButton"
+import { AxisEditButton } from "./editAxis/editAxisButton"
 import { getAxis } from "@/app/lib/actions/axis/get.axis"
 
 export const Axis = async (props: Pick<AxisDTO, "id">) => {
@@ -18,7 +20,7 @@ export const Axis = async (props: Pick<AxisDTO, "id">) => {
                 <div className="flex">
                     <AddPresentation {...props} />
                     <AxisEditButton {...props} />
-                    <AxisDeleteButton {...props} />
+                    <DeleteAxisButton {...props} />
                 </div>
             </Header>
             {organizer && <small>Organizado por: {organizer.users.name}</small>}

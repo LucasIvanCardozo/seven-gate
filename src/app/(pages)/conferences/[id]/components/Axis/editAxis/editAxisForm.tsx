@@ -4,7 +4,7 @@ import { useUI } from "@/app/contexts/UIContext"
 import { AxisDTO } from "@/app/lib/actions/axis/get.by.conference"
 import { updateAxis } from "@/app/lib/actions/axis/update.axis"
 
-export const AxisEditForm = ({ id, title }: Pick<AxisDTO, "id" | "title">) => {
+export const EditAxisForm = ({ id, title }: Pick<AxisDTO, "id" | "title">) => {
     const { showToast } = useUI()
 
     return (

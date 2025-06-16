@@ -1,11 +1,11 @@
-
-
-import { Section } from '@/app/components/Section';
+"use server"
+import { Section } from "@/app/components/Section"
+import { getConference } from "@/app/lib/actions/conferences/get.conference"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 
+export const Stats = async ({ id }: Pick<Conference, "id">) => {
+    const { data } = await getConference({ id })
+    if (!data) return null
 
-export const Stats = (props: Conference) => {
-  return (
-    <Section title="Stats"></Section>
-  )
+    return <Section title="Stats"></Section>
 }

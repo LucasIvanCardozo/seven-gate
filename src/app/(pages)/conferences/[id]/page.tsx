@@ -1,11 +1,10 @@
-import { getConference } from "@/app/lib/actions/conferences/get.conference"
-import { redirect } from "next/navigation"
-import { AdminSection } from "./components/Admin/AdminSection"
-import { AxisSection } from "./components/Axis/AxisSection"
-import { EvaluatorSection } from "./components/Evaluator/EvaluatorSection"
+import { AdminSection } from "./components/admin/AdminSection"
+import { AxisSection } from "./components/axis/AxisSection"
+import { EvaluatorSection } from "./components/evaluator/EvaluatorSection"
 import { Info } from "./components/Info"
-import { MyPresentations } from "./components/MyPresentations"
+import { MyPresentations } from "./components/speaker/MyPresentations"
 import { Stats } from "./components/Stats"
+import { LogoImage } from "./components/LogoImage"
 
 export default async function Page({
     params,
@@ -14,26 +13,21 @@ export default async function Page({
 }) {
     const id = +(await params).id
 
-    const { data } = await getConference({ id })
-    if (!data) return redirect("/conferences")
-
-    const { logo_url } = data
-
     return (
         <main>
-            <img src={logo_url} />
+            <LogoImage id={id} />
 
             <Info id={id} />
 
             <AdminSection id={id} />
 
-            <EvaluatorSection {...data} />
+            <EvaluatorSection id={id} />
 
-            <MyPresentations {...data} />
+            <MyPresentations id={id} />
 
-            <AxisSection {...data} />
+            <AxisSection id={id} />
 
-            <Stats {...data} />
+            <Stats id={id} />
         </main>
     )
 }

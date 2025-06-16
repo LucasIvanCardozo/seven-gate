@@ -1,19 +1,14 @@
+"use server"
 import { Section } from "@/app/components/Section"
-import { getMyConferences } from "@/app/lib/actions/conferences/get.my.conferences"
-import { ConferenceList } from "./ConferenceList"
+import { MyConferenceListOld } from "./myConference/MyConferenceListOld"
+import { MyConferenceListUpcoming } from "./myConference/MyConferenceListUpcoming"
 
 export const MyConferences = async () => {
-    const { data } = await getMyConferences()
-
-    if (!data) return null
-
-    const { upcoming, old } = data
-
     return (
         <Section title="Mis congresos">
-            <ConferenceList title="Próximos" conferences={upcoming} />
+            <MyConferenceListOld />
             <hr />
-            <ConferenceList title="Pasados" conferences={old} />
+            <MyConferenceListUpcoming />
         </Section>
     )
 }

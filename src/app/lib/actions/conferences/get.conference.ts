@@ -34,10 +34,12 @@ export const getConference = createAction(schema, async ({ id }) => {
 
     const { id: profileId, conferences, profile_roles } = profile
 
+    const roles = profile_roles.map((item) => item.roles.role as Role)
+
     return {
         ...conferences,
         profileId,
-        roles: profile_roles.map((item) => item.roles.role as Role),
+        roles,
     }
 })
 
@@ -49,7 +51,7 @@ export const getBaseConference = async (id: number | string) => {
     return {
         ...conference,
         profileId: null,
-        roles: null
+        roles: null,
     }
 }
 

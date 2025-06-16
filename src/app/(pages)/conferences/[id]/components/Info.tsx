@@ -1,3 +1,4 @@
+"use server"
 import { Header } from "@/app/components/Header"
 import { Section } from "@/app/components/Section"
 import { capitalize } from "@/app/utils/capitalize"

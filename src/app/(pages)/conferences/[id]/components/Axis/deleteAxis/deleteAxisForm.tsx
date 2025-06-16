@@ -1,11 +1,10 @@
 "use client"
 import { SubmitButton } from "@/app/components/SubmitButton"
 import { useUI } from "@/app/contexts/UIContext"
-import { useUser } from "@/app/hooks/useUser"
 import { deleteAxis } from "@/app/lib/actions/axis/delete.axis"
 import { AxisDTO } from "@/app/lib/actions/axis/get.by.conference"
 
-export const AxisDeleteForm = ({ id }: Pick<AxisDTO, "id">) => {
+export const DeleteAxisForm = ({ id }: Pick<AxisDTO, "id">) => {
     const { showToast } = useUI()
 
     return (

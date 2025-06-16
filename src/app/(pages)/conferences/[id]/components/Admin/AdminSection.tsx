@@ -1,7 +1,8 @@
+"use server"
 import { Section } from "@/app/components/Section"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
-import { NewAxisForm } from "./NewAxisForm"
-import { RoleAdministration } from "./RoleAdministration"
+import { NewAxisButton } from "./newAxis/NewAxisButton"
+import { RoleAdministrationButton } from "./roleAdministration/RoleAdministrationButton"
 import { getConference } from "@/app/lib/actions/conferences/get.conference"
 
 export const AdminSection = async ({ id }: Pick<Conference, "id">) => {
@@ -14,8 +15,8 @@ export const AdminSection = async ({ id }: Pick<Conference, "id">) => {
     return (
         <Section title="Administración">
             <div className="flex">
-                <NewAxisForm id={id} />
-                <RoleAdministration id={id} />
+                <NewAxisButton id={id} />
+                <RoleAdministrationButton id={id} />
             </div>
         </Section>
     )

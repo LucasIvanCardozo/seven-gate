@@ -9,6 +9,7 @@ import { DayJs } from "@/app/utils/DayJs"
 import { getAxis } from "../axis/get.axis"
 import { getProfile } from "../profiles/get.profile"
 import { canUploadPresentation } from "./can.upload.presentation"
+import { getEvaluatorsByAxis } from "../profiles/get.evaluators.by.axis"
 
 const { object, number, instanceof: iof } = z
 
@@ -51,6 +52,12 @@ export const createPresentation = createAction(
         if (!canUpload)
             throw new Error("Ya tenés una ponencia en esta conferencia.")
 
+        const { data: evaluators } = await getEvaluatorsByAxis({ id: axis_id })
+
+        const evaluator_profile_id = evaluators?.at(Math.floor(Math.random() * evaluators.length))?.id
+        if (!evaluator_profile_id)
+            throw new Error("No hay evaluadores para este eje por el momento.")
+
         const { url } = await uploadFile(file, {
             folder: "presentations",
             public_id: `profileId_${presenter_profile_id}_axisId_${axis_id}`,
@@ -60,6 +67,7 @@ export const createPresentation = createAction(
             data: {
                 presenter_profile_id,
                 axis_id,
+                evaluator_profile_id,
                 url,
             },
         })

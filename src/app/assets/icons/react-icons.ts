@@ -1,0 +1,8 @@
+export { IoClose as Close } from "react-icons/io5"
+export { RxHamburgerMenu as Burger } from "react-icons/rx"
+export { FaDownload as Download } from "react-icons/fa"
+export { FaEarListen as Listener } from "react-icons/fa6"
+export { MdAdminPanelSettings as Admin } from "react-icons/md"
+export { MdOutlineStickyNote2 as Evaluator } from "react-icons/md"
+export { MdCoPresent as Speaker } from "react-icons/md"
+export { GiPublicSpeaker as ElQueHabla2Min } from "react-icons/gi"

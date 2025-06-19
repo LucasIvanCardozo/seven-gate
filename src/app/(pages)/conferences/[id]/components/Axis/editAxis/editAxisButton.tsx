@@ -2,12 +2,12 @@
 import { Modal } from "@/app/components/Modal"
 import { Section } from "@/app/components/Section"
 import { EditAxisForm } from "./editAxisForm"
-import { AxisDTO } from "@/app/lib/actions/axis/get.by.conference"
+import { AxisDTO } from "@/app/lib/actions/axis/get.axis.by.conference"
 import { getAxis } from "@/app/lib/actions/axis/get.axis"
 import { getProfile } from "@/app/lib/actions/profiles/get.profile"
 
-export const AxisEditButton = async (props: { id: AxisDTO["id"] }) => {
-    const { data: axis } = await getAxis(props)
+export const AxisEditButton = async ({ id }: { id: AxisDTO["id"] }) => {
+    const { data: axis } = await getAxis({ id })
     if (!axis) return null
 
     const { conference_id } = axis

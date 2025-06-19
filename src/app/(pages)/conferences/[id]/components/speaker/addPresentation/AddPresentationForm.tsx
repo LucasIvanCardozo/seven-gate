@@ -2,7 +2,7 @@
 
 import { SubmitButton } from "@/app/components/SubmitButton"
 import { useUI } from "@/app/contexts/UIContext"
-import { AxisDTO } from "@/app/lib/actions/axis/get.by.conference"
+import { AxisDTO } from "@/app/lib/actions/axis/get.axis.by.conference"
 import { createPresentation } from "@/app/lib/actions/presentations/create.presentation"
 
 export const AddPresentationForm = ({ id }: Pick<AxisDTO, "id">) => {

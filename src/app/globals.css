@@ -1,9 +1,9 @@
-@import url('https://ds.egg.live/egg.css');
+@import "./eggStyles.css";
 
 :root {
     --background: var(--color-light-grey-1);
     --color-text: var(--color-light-egg-lead);
-    
+
     --color-primary: var(--color-light-grey-2);
     --color-secondary: #9a8c98;
 }
@@ -11,13 +11,14 @@
 body {
     background-color: var(--background);
     color: var(--color-text);
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 1rem;
     line-height: 1.5;
 }
-  
+
 .container {
-    max-width: 100%;
+    width: 100%;
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 1rem;
 }
@@ -28,6 +29,15 @@ a {
 
 input {
     background-color: var(--color-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
 }
 
 h1 {
@@ -56,7 +66,7 @@ h5 {
 
 h6 {
     font-size: 0.875rem;
-} 
+}
 
 .only-mobile {
     display: none;
@@ -65,20 +75,43 @@ h6 {
 .flex {
     display: flex;
     align-items: center;
-    gap: 10px
+    gap: 10px;
 }
 
 button.green {
-    background-color: var(--color-comp-energy-green)
+    background-color: var(--color-comp-energy-green);
 }
 
 select {
     all: unset;
-    
 }
 
 @media (max-width: 768px) {
     .only-mobile {
         display: block;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    h5 {
+        font-size: 0.875rem;
+    }
+
+    h6 {
+        font-size: 0.75rem;
     }
 }

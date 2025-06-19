@@ -2,7 +2,7 @@
 import { SubmitButton } from "@/app/components/SubmitButton"
 import { useUI } from "@/app/contexts/UIContext"
 import { deleteAxis } from "@/app/lib/actions/axis/delete.axis"
-import { AxisDTO } from "@/app/lib/actions/axis/get.by.conference"
+import { AxisDTO } from "@/app/lib/actions/axis/get.axis.by.conference"
 
 export const DeleteAxisForm = ({ id }: Pick<AxisDTO, "id">) => {
     const { showToast } = useUI()

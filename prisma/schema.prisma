@@ -163,4 +163,6 @@ model evaluator_axis_assignments {
   axis_id    Int
   profile    profile @relation(fields: [profile_id], references: [id])
   axis       axis    @relation(fields: [axis_id], references: [id])
+
+  @@unique([profile_id, axis_id])
 }

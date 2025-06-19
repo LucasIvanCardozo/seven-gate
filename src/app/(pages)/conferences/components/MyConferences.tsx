@@ -6,9 +6,8 @@ import { MyConferenceListUpcoming } from "./myConference/MyConferenceListUpcomin
 export const MyConferences = async () => {
     return (
         <Section title="Mis congresos">
-            <MyConferenceListOld />
-            <hr />
             <MyConferenceListUpcoming />
+            <MyConferenceListOld />
         </Section>
     )
 }

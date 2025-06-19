@@ -2,7 +2,7 @@
 import {
     AxisDTO,
     getAxisByConference,
-} from "@/app/lib/actions/axis/get.by.conference"
+} from "@/app/lib/actions/axis/get.axis.by.conference"
 import Styles from "./Axis.module.css"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import { Section } from "@/app/components/Section"
@@ -38,7 +38,7 @@ export const AxisSection = async ({ id }: Pick<Conference, "id">) => {
 
 const AxisList = ({ axis }: { axis: AxisDTO[] }) =>
     axis?.length ? (
-        axis.map((item) => <Axis key={item.id} {...item} />)
+        axis.map(({ id }) => <Axis key={id} id={id} />)
     ) : (
         <p>No hay ejes</p>
     )

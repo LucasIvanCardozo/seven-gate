@@ -6,7 +6,6 @@ import { getPresentations } from "@/app/lib/actions/presentations/get.presentati
 import { Downloader } from "../Downloader"
 import { getConference } from "@/app/lib/actions/conferences/get.conference"
 import Styles from "./MyPresentations.module.css"
-
 export const MyPresentations = async ({ id }: Pick<Conference, "id">) => {
     const { data } = await getConference({ id })
     if (!data) return null
@@ -18,17 +17,32 @@ export const MyPresentations = async ({ id }: Pick<Conference, "id">) => {
 
     return (
         <Section title="Mis ponencias">
-            {presentations.map(({ id, url, axis, state, comments }) => (
-                <article key={id} className={`${Styles[state]} card white`}>
-                    <Header>
+            {presentations.map(
+                ({ id, url, axis, state, comments, evaluator_profile_id }) => (
+                    <article key={id} className={`${Styles[state]} card white`}>
+                        <Header>
+                            <h3>Eje: {axis.title}</h3>
+                            <Downloader url={url} title={axis.title + ".pdf"} />
+                        </Header>
                         <div>
-                            <p>Eje: {axis.title}</p>
-                            {comments && <p>{comments}</p>}
+                            {state === "pending" ? (
+                                <span className="">
+                                    Pendiente de evaluación
+                                </span>
+                            ) : state === "approved" ? (
+                                <span>Aprobada</span>
+                            ) : (
+                                <span>Rechazada</span>
+                            )}
+                            {comments && (
+                                <div>
+                                    <p>{comments}</p>
+                                </div>
+                            )}
                         </div>
-                        <Downloader url={url} title={axis.title + ".pdf"} />
-                    </Header>
-                </article>
-            ))}
+                    </article>
+                ),
+            )}
         </Section>
     )
 }

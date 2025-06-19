@@ -2,7 +2,6 @@
 import z from "zod"
 import { DB } from "../../db/db"
 import createAction from "../createActions"
-import { getConference } from "../conferences/get.conference"
 
 const { object, number } = z
 const schema = object({
@@ -15,10 +14,32 @@ export const getAxisByConference = createAction(schema, async ({ id }) => {
         include: {
             profile: {
                 include: {
-                    users: { select: { id: true, name: true, lastname: true } },
+                    users: {
+                        select: {
+                            id: true,
+                            name: true,
+                            lastname: true,
+                            email: true,
+                        },
+                    },
                 },
             },
-            evaluator_axis_assignments: true,
+            evaluator_axis_assignments: {
+                include: {
+                    profile: {
+                        include: {
+                            users: {
+                                select: {
+                                    id: true,
+                                    name: true,
+                                    lastname: true,
+                                    email: true,
+                                },
+                            },
+                        },
+                    },
+                },
+            },
         },
     })
 

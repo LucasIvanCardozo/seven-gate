@@ -7,10 +7,8 @@ import { Role } from "@/app/lib/actions/conferences/get.my.conferences"
 import { capitalize } from "@/app/utils/capitalize"
 import { formToData } from "@/app/utils/formToData"
 
-export const EnrollForm = ({ id }: { id: number }) => {
+export const EnrollForm = ({ id, roles }: { id: number; roles: Role[] }) => {
     const { showToast } = useUI()
-
-    const validRoles: Role[] = ["oyente", "ponente"]
 
     return (
         <form
@@ -27,7 +25,7 @@ export const EnrollForm = ({ id }: { id: number }) => {
                 }
             }}
         >
-            {validRoles.map((role) => (
+            {roles.map((role) => (
                 <label key={role} className="inline right">
                     {capitalize(role)}
                     <input required type="radio" name="role" value={role} />

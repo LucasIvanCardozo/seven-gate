@@ -1,7 +1,7 @@
 "use client"
 import { SubmitButton } from "@/app/components/SubmitButton"
 import { useUI } from "@/app/contexts/UIContext"
-import { AxisDTO } from "@/app/lib/actions/axis/get.by.conference"
+import { AxisDTO } from "@/app/lib/actions/axis/get.axis.by.conference"
 import { updateAxis } from "@/app/lib/actions/axis/update.axis"
 
 export const EditAxisForm = ({ id, title }: Pick<AxisDTO, "id" | "title">) => {

@@ -4,6 +4,7 @@ import { z } from "zod"
 import { Role, roles } from "../conferences/get.my.conferences"
 import createAction from "../createActions"
 import { DB } from "../../db/db"
+import { getUserByEmail } from "../users/get.user.by.email"
 
 const { object, string, coerce, number } = z
 const schema = object({
@@ -15,11 +16,7 @@ const schema = object({
 export const createProfile = createAction(
     schema,
     async ({ conference_id, email, role_id }) => {
-        const user = await DB.users.findFirst({
-            where: {
-                email,
-            },
-        })
+        const { data: user } = await getUserByEmail({ email })
         if (!user) throw new Error("Usuario no encontrado")
 
         const user_id = user.id

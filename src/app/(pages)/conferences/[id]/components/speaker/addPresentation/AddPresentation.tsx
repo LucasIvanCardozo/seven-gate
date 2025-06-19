@@ -3,13 +3,13 @@ import { Modal } from "@/app/components/Modal"
 import { Section } from "@/app/components/Section"
 import { DayJs } from "@/app/utils/DayJs"
 import { AddPresentationForm } from "./AddPresentationForm"
-import { AxisDTO } from "@/app/lib/actions/axis/get.by.conference"
+import { AxisDTO } from "@/app/lib/actions/axis/get.axis.by.conference"
 import { getProfile } from "@/app/lib/actions/profiles/get.profile"
 import { getAxis } from "@/app/lib/actions/axis/get.axis"
 import { canUploadPresentation } from "@/app/lib/actions/presentations/can.upload.presentation"
 
-export const AddPresentation = async (props: Pick<AxisDTO, "id">) => {
-    const { data: axis } = await getAxis(props)
+export const AddPresentation = async ({ id }: Pick<AxisDTO, "id">) => {
+    const { data: axis } = await getAxis({ id })
     if (!axis) return null
 
     const { conference_id } = axis
@@ -44,7 +44,7 @@ export const AddPresentation = async (props: Pick<AxisDTO, "id">) => {
             }
         >
             <Section title="Agregar ponencia">
-                <AddPresentationForm {...props} />
+                <AddPresentationForm id={id} />
             </Section>
         </Modal>
     )

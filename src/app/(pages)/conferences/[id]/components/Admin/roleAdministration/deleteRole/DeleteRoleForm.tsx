@@ -2,8 +2,12 @@
 import { SubmitButton } from "@/app/components/SubmitButton"
 import { GetProfiles } from "@/app/lib/actions/profiles/get.profiles"
 import { useState } from "react"
+import {useUI} from "@/app/contexts/UIContext"
+import { deleteRoleFromProfile } from "@/app/lib/actions/roles/delete.role.from.profile"
 
 export const DeleteRoleForm = ({ profiles }: { profiles: GetProfiles }) => {
+    const { showToast } = useUI()
+
     const [email, setEmail] = useState<string | null>(null)
 
     const profile = profiles.find((item) => item.users.email === email)
@@ -12,16 +16,16 @@ export const DeleteRoleForm = ({ profiles }: { profiles: GetProfiles }) => {
     return (
         <form
             action={async (formData) => {
-                // const title = formData.get("title") as string
-                // const { error } = await createAxis({
-                //     title,
-                //     idConference: id,
-                // })
-                // if (error) showToast.error(error)
-                // else
-                //     showToast.success(
-                //         `Eje "${title}" creado correctamente`,
-                //     )
+                const email = formData.get("email")
+                const role_ids = formData.getAll("role_id")
+
+                const { error, data } = await deleteRoleFromProfile({ email, role_ids })
+
+                if (error) showToast.error(error)
+                else
+                    showToast.success(
+                        `Rol eliminado correctamente.${data?.profileDeleted ? ' Perfil eliminado' : ''}`,
+                    )
             }}
         >
             <label>

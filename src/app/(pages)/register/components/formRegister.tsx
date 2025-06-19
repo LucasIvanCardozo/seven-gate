@@ -5,6 +5,7 @@ import { useUI } from "../../../contexts/UIContext"
 import { useRouter } from "next/navigation"
 import { createUser } from "@/app/lib/actions/users/create.users"
 import { formToData } from "@/app/utils/formToData"
+import Styles from "./FormRegister.module.css"
 
 export default function FormRegister() {
     const { pending } = useFormStatus()
@@ -27,7 +28,7 @@ export default function FormRegister() {
     }
 
     return (
-        <form onSubmit={onSubmit}>
+        <form className={Styles.form} onSubmit={onSubmit}>
             <fieldset>
                 <legend>Datos personales</legend>
                 <label>

@@ -6,6 +6,7 @@ import type { Metadata } from "next"
 import type { PropsWithChildren } from "react"
 import { Nav } from "./components/Nav"
 import Providers from "./contexts/Providers"
+import { Footer } from "./components/Footer"
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -28,9 +29,10 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
                 <Providers>
                     <Nav />
-                    <div className="container" 
-                    id="root"
-                    >{children}</div>
+                    <div className="container" id="root">
+                        {children}
+                    </div>
+                    <Footer />
                 </Providers>
             </body>
         </html>

@@ -9,14 +9,17 @@ export const ConferenceList = ({
     conferences,
 }: {
     title: ComponentProps<typeof Section>["title"]
-    conferences: ConferenceType[]
-}) =>
-    !!conferences.length && (
-        <Section title={title}>
+    conferences: ConferenceType[] | null
+}) => (
+    <Section title={title}>
+        {conferences?.length ? (
             <Grid>
-                {conferences.map((item) => (
-                    <Conference key={item.id} {...item} />
+                {conferences.map(({ id }) => (
+                    <Conference key={id} id={id} />
                 ))}
             </Grid>
-        </Section>
-    )
+        ) : (
+            <p>No hay conferencias</p>
+        )}
+    </Section>
+)

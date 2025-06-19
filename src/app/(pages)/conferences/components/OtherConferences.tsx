@@ -5,9 +5,8 @@ import { OtherConferenceListUpcoming } from "./otherConferences/OtherConferenceL
 export const OtherConferences = async () => {
     return (
         <Section title="Otros congresos">
-            <OtherConferenceListOld />
-            <hr />
             <OtherConferenceListUpcoming />
+            <OtherConferenceListOld />
         </Section>
     )
 }

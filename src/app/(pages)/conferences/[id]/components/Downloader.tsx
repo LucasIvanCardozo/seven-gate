@@ -1,4 +1,5 @@
 "use client"
+import { Download } from "@/app/assets/icons/react-icons"
 
 export const Downloader = ({ url, title }: { url: string; title: string }) => {
     const downloadFile = async () => {
@@ -11,7 +12,7 @@ export const Downloader = ({ url, title }: { url: string; title: string }) => {
     }
     return (
         <button onClick={() => downloadFile()} className="text dark">
-            Descargar
+            <Download />
         </button>
     )
 }

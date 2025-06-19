@@ -5,6 +5,7 @@ import { Info } from "./components/Info"
 import { MyPresentations } from "./components/speaker/MyPresentations"
 import { Stats } from "./components/Stats"
 import { LogoImage } from "./components/LogoImage"
+import { Circulars } from "./components/Circulars"
 
 export default async function Page({
     params,
@@ -28,6 +29,8 @@ export default async function Page({
             <AxisSection id={id} />
 
             <Stats id={id} />
+
+            <Circulars id={id}/>
         </main>
     )
 }

@@ -4,7 +4,6 @@ import { ConferenceList } from "../ConferenceList"
 
 export const MyConferenceListOld = async () => {
     const { data } = await getMyConferencesOld()
-    if (!data) return null
 
     return <ConferenceList title="Pasados" conferences={data} />
 }

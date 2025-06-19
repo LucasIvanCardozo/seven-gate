@@ -10,7 +10,13 @@ export const LogoImage = async ({ id }: Pick<Conference, "id">) => {
 
     const { logo_url } = data
     return (
-        <div>
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "4rem 0 0 0",
+            }}
+        >
             <img src={logo_url} />
         </div>
     )

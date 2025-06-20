@@ -1,9 +1,0 @@
-.axis {
-    display: flex;
-    flex-direction: column;
-    gap: 10px
-}
-
-.axis small {
-    opacity: 0.8;
-}

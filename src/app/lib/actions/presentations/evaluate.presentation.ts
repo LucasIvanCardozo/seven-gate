@@ -72,6 +72,7 @@ export const parseState = async (state: State) => {
         approved_with_comments: "Aprobada con comentarios",
         rejected: "Rechazada",
         pending: "Pendiente",
+        re_sent: "Reenviada",
     }
 
     return map[state] || "Desconocida"

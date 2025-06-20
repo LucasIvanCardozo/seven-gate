@@ -48,6 +48,7 @@ enum State {
   pending
   approved
   approved_with_comments
+  re_sent
   rejected
 }
 
@@ -56,6 +57,7 @@ model presentations {
   presenter_profile_id                                Int
   evaluator_profile_id                                Int?
   axis_id                                             Int
+  title                                               String    @db.VarChar
   url                                                 String    @db.VarChar
   comments                                            String?   @db.VarChar
   state                                               State     @default(pending)

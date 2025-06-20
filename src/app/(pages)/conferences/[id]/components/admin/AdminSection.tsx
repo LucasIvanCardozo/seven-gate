@@ -5,6 +5,7 @@ import { AxisAdministrationButton } from "./axisAdministration/AxisAdministratio
 import { RoleAdministrationButton } from "./roleAdministration/RoleAdministrationButton"
 import { getConference } from "@/app/lib/actions/conferences/get.conference"
 import { CircularAdministrationButton } from "./circularAdministration/CircularAdministrationButton"
+import { GenerateQrButton } from "./qrGenerate/generateQrButton"
 
 export const AdminSection = async ({ id }: Pick<Conference, "id">) => {
     const { data } = await getConference({ id })
@@ -19,6 +20,7 @@ export const AdminSection = async ({ id }: Pick<Conference, "id">) => {
                 <AxisAdministrationButton id={id} />
                 <RoleAdministrationButton id={id} />
                 <CircularAdministrationButton id={id} />
+                <GenerateQrButton id={id} />
             </div>
         </Section>
     )

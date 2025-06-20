@@ -1,3 +1,5 @@
+"use server"
+
 import { z } from "zod"
 import createAction from "../createActions"
 import { getPresentations } from "./get.presentations"
@@ -16,6 +18,11 @@ export const canUploadPresentation = createAction(
 
         if (!presentations) return true
 
-        return presentations.every(({ state }) => state === "rejected") // can upload again
+        return (
+            presentations.every(({ state }) => state === "rejected") ||
+            presentations.some(
+                ({ state }) => state === "approved_with_comments",
+            )
+        )
     },
 )

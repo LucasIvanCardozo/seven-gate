@@ -6,22 +6,27 @@ import {
     Role,
 } from "@/app/lib/actions/conferences/get.my.conferences"
 import { createProfile } from "@/app/lib/actions/profiles/create.profile"
+import { GetProfiles } from "@/app/lib/actions/profiles/get.profiles"
 import { formToData } from "@/app/utils/formToData"
+import { useState } from "react"
 
 export const NewRoleForm = ({
     id,
     roles,
+    profiles
 }: {
     id: Conference["id"]
     roles: { id: number; role: Role }[]
+    profiles: GetProfiles
 }) => {
     const { showToast } = useUI()
+
+    const users = profiles.map((item) => item.users)
+
     return (
         <form
             action={async (formData) => {
                 const data = formToData(formData)
-
-                console.log(data)
 
                 const { error } = await createProfile({
                     conference_id: id,
@@ -32,9 +37,22 @@ export const NewRoleForm = ({
             }}
         >
             <label>
-                Email:
-                <input type="email" name="email" />
+                Usuario:
+                <input
+                    type="text"
+                    name="email"
+                    list="user-email"
+                    autoComplete="off"
+                />
             </label>
+
+            <datalist id="user-email">
+                {users.map((user) => (
+                    <option key={user.email} value={user.email}>
+                        {user.name} {user.lastname}
+                    </option>
+                ))}
+            </datalist>
 
             <label>
                 Rol:

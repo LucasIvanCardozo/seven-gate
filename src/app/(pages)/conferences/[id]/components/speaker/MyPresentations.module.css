@@ -1,12 +1,19 @@
 .approved {
-    border: 2px solid green;
+    border: 2px solid #28a745;
 }
+
 .approved_with_comments {
-    border: 2px solid green;
+    border: 2px solid #17a2b8;
 }
+
+.re_sent {
+    border: 2px solid #0078bb;
+}
+
 .pending {
-    border: 2px solid rgb(255, 166, 0);
+    border: 2px solid #ffc107;
 }
+
 .rejected {
-    border: 2px solid red;
+    border: 2px solid #dc3545;
 }

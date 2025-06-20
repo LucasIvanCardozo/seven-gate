@@ -17,18 +17,28 @@ export const EnrollButton = async ({ id }: Pick<Conference, "id">) => {
     const now = DayJs()
     if (now.isAfter(DayJs(date))) return null
 
-    const validRoles: Role[] = ["oyente", "ponente"]
+    const rolesLength = roles?.length ?? 0
 
-    const rolesForInscription = validRoles?.filter(
-        (role) => !roles?.includes(role),
-    )
+    const availableRoles: Role[] = []
 
-    if (!rolesForInscription.length) return null
+    if (rolesLength == 0) availableRoles.push("oyente")
+    if (!roles?.includes("ponente") && !roles?.includes("admin"))
+        availableRoles.push("ponente")
+    
+    // roles?.includes("admin")
+    //     ? []
+    //     : rolesLength === 1 && roles?.at(0) === "oyente"
+    //       ? ["ponente"]
+    //       : roles?.includes("ponente")
+    //         ? []
+    //         : validRoles?.filter((role) => !roles?.includes(role))
+
+    if (!availableRoles.length) return null
 
     return (
         <Modal opener={<button className="blue">Inscribirme</button>}>
             <Section title={`Inscribirme en: ${title}`}>
-                <EnrollForm id={id} roles={rolesForInscription} />
+                <EnrollForm id={id} roles={availableRoles} />
             </Section>
         </Modal>
     )

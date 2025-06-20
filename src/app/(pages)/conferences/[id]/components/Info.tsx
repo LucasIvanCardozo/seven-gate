@@ -9,6 +9,7 @@ import {
     getConference,
     getConferenceAdmins,
 } from "@/app/lib/actions/conferences/get.conference"
+import { MarkAssistance } from "./MarkAssistance"
 
 export const Info = async ({ id }: Pick<Conference, "id">) => {
     const { data } = await getConference({ id })
@@ -22,6 +23,7 @@ export const Info = async ({ id }: Pick<Conference, "id">) => {
                 <Header>
                     <h2>{title}</h2>
                     <EnrollButton {...data} />
+                    <MarkAssistance id={id} />
                 </Header>
             }
         >

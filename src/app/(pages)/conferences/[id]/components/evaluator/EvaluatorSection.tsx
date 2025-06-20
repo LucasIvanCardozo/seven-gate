@@ -23,15 +23,16 @@ export const EvaluatorSection = async ({ id }: Pick<Conference, "id">) => {
 
     return (
         <Section title="Presentaciones a evaluar">
-            {presentations.map(({ id, url, axis }) => (
+            {presentations.map(({ id, url, axis, title }) => (
                 <article key={id} className="card white">
                     <Header>
-                        <span>{axis.title}</span>
+                        <span>{title}</span>
                         <div className="flex">
                             <EvaluatePresentationButton id={id} />
                             <Downloader url={url} title={axis.title + ".pdf"} />
                         </div>
                     </Header>
+                    <span>Eje: {axis.title}</span>
                 </article>
             ))}
         </Section>

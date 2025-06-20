@@ -45,3 +45,5 @@ export const getProfile = createAction(schema, async ({ conference_id }) => {
         roles: profile_roles.map((item) => item.roles.role as Role),
     }
 })
+
+export type ProfileDTO = NonNullable<Awaited<ReturnType<typeof getProfile>>["data"]>

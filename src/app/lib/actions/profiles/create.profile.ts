@@ -5,6 +5,7 @@ import { Role, roles } from "../conferences/get.my.conferences"
 import createAction from "../createActions"
 import { DB } from "../../db/db"
 import { getUserByEmail } from "../users/get.user.by.email"
+import { deleteRoleFromProfile } from "../roles/delete.role.from.profile"
 
 const { object, string, coerce, number } = z
 const schema = object({
@@ -35,12 +36,14 @@ export const createProfile = createAction(
             update: {},
             include: {
                 profile_roles: {
-                    select: { roles_id: true },
+                    select: { roles: true },
                 },
             },
         })
 
-        const roles_ids = profile.profile_roles.map(({ roles_id }) => roles_id)
+        const { profile_roles } = profile
+
+        const roles_ids = profile_roles.map(({ roles }) => roles.id)
         if (roles_ids.includes(role_id))
             throw new Error("Ese usuario ya posee ese rol")
 
@@ -50,6 +53,15 @@ export const createProfile = createAction(
                 roles_id: role_id,
             },
         })
+
+        const wasListener = profile_roles.find(
+            ({ roles }) => roles.role === "oyente",
+        )
+        if (wasListener)
+            await deleteRoleFromProfile({
+                email,
+                role_ids: [wasListener.roles.id]
+            })
 
         return profile
     },

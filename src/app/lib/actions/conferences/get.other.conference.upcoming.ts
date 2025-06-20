@@ -8,13 +8,17 @@ export const getOtherConferencesUpcoming = createAction(null, async () => {
 
     const conferences = (await DB.conferences.findMany({
         where: {
-            NOT: {
-                profile: {
-                    some: {
-                        user_id: user ? +user.id : undefined,
-                    },
-                },
-            },
+            ...(user
+                ? {
+                      NOT: {
+                          profile: {
+                              some: {
+                                  user_id: +user.id,
+                              },
+                          },
+                      },
+                  }
+                : {}),
             date: {
                 gt: new Date(),
             },

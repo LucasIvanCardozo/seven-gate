@@ -10,8 +10,10 @@ import { getAxis } from "../axis/get.axis"
 import { getProfile } from "../profiles/get.profile"
 import { canUploadPresentation } from "./can.upload.presentation"
 import { getEvaluatorsByAxis } from "../profiles/get.evaluators.by.axis"
+import { getPresentations } from "./get.presentations"
+import { markAsReSent } from "./mark.as.re.sent"
 
-const { object, number, instanceof: iof } = z
+const { object, number, string, instanceof: iof } = z
 
 const fileSchema = iof(File)
     .refine(
@@ -24,13 +26,14 @@ const fileSchema = iof(File)
     )
 
 const schema = object({
+    title: string().min(1),
     axis_id: number().positive(),
     file: fileSchema,
 })
 
 export const createPresentation = createAction(
     schema,
-    async ({ file, axis_id }) => {
+    async ({ file, title, axis_id }) => {
         const { user } = await getServerUser()
         if (!user) throw new Error("Necesitas estar logueado")
 
@@ -54,7 +57,9 @@ export const createPresentation = createAction(
 
         const { data: evaluators } = await getEvaluatorsByAxis({ id: axis_id })
 
-        const evaluator_profile_id = evaluators?.at(Math.floor(Math.random() * evaluators.length))?.id
+        const evaluator_profile_id = evaluators?.at(
+            Math.floor(Math.random() * evaluators.length),
+        )?.id
         if (!evaluator_profile_id)
             throw new Error("No hay evaluadores para este eje por el momento.")
 
@@ -65,12 +70,22 @@ export const createPresentation = createAction(
 
         const { id } = await DB.presentations.create({
             data: {
-                presenter_profile_id,
+                title,
                 axis_id,
+                presenter_profile_id,
                 evaluator_profile_id,
                 url,
             },
         })
+
+        const { data: presentations } = await getPresentations({
+            id: axis.conference_id,
+        })
+        const approvedWithComments = presentations?.find(
+            ({ state }) => state === "approved_with_comments",
+        )
+        if (approvedWithComments)
+            await markAsReSent({ id: approvedWithComments.id })
 
         return { id }
     },

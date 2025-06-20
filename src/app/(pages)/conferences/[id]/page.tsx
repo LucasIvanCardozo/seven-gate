@@ -1,6 +1,6 @@
-// import { AdminSection } from "./components/admin/AdminSection"
-// import { AxisSection } from "./components/axis/AxisSection"
-// import { EvaluatorSection } from "./components/evaluator/EvaluatorSection"
+import { AdminSection } from "./components/admin/AdminSection"
+import { AxisSection } from "./components/axis/AxisSection"
+import { EvaluatorSection } from "./components/evaluator/EvaluatorSection"
 import { Info } from "./components/Info"
 import { MyPresentations } from "./components/speaker/MyPresentations"
 import { Stats } from "./components/Stats"
@@ -20,13 +20,13 @@ export default async function Page({
 
             <Info id={id} />
 
-            {/* <AdminSection id={id} /> */}
+            <AdminSection id={id} />
 
-            {/* <EvaluatorSection id={id} /> */}
+            <EvaluatorSection id={id} />
 
             <MyPresentations id={id} />
 
-            {/* <AxisSection id={id} /> */}
+            <AxisSection id={id} />
 
             <Stats id={id} />
 

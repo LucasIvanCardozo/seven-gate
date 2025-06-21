@@ -5,8 +5,8 @@ export const Loading = () => (
         style={{
             display: "grid",
             placeItems: "center",
-            height: "100vh",
-            width: "100vw",
+            height: "100%",
+            width: "100%",
         }}
     >
         Cargando...

@@ -23,9 +23,10 @@ export const UnEnrollButton = async ({ id }: Pick<Conference, "id">) => {
 
     return (
         <Modal opener={<button className="red">Desinscribirme</button>}>
-            <Section
-                title={`¿Está seguro que desea desinscribirse de ${title}?`}
-            >
+            <Section title="Elige los roles">
+                <p style={{ margin: 0 }}>
+                    Selecciona los roles en los que deseas desinscribirte:
+                </p>
                 <UnEnrollForm {...data} />
             </Section>
         </Modal>

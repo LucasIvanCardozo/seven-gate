@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 
 import type { Metadata } from "next"
 import type { PropsWithChildren } from "react"
-import { Nav } from "./components/Nav"
+import { Nav } from "./components/nav/Nav"
 import Providers from "./contexts/Providers"
 import { Footer } from "./components/Footer"
 

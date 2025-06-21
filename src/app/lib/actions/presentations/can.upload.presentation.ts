@@ -2,7 +2,7 @@
 
 import { z } from "zod"
 import createAction from "../createActions"
-import { getPresentations } from "./get.presentations"
+import { getMyPresentations } from "./get.my.presentations"
 
 const { object } = z
 const schema = object({
@@ -12,7 +12,7 @@ const schema = object({
 export const canUploadPresentation = createAction(
     schema,
     async ({ conference_id }) => {
-        const { data: presentations } = await getPresentations({
+        const { data: presentations } = await getMyPresentations({
             id: conference_id,
         })
 

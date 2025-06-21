@@ -14,7 +14,7 @@ export const GenerateQrButton = async ({ id }: Pick<Conference, "id">) => {
     const { title } = conference
 
     return (
-        <Modal opener={<button className="blue">Ejes</button>}>
+        <Modal opener={<button className="blue">QR</button>}>
             <Header>
                 <h3>{title}</h3>
                 <Downloader title={`${title}-QR.pdf`} url="" />

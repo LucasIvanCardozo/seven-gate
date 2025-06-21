@@ -6,6 +6,7 @@ import { MyPresentations } from "./components/speaker/MyPresentations"
 import { Stats } from "./components/Stats"
 import { LogoImage } from "./components/LogoImage"
 import { Circulars } from "./components/Circulars"
+import { Sponsors } from "./components/Sponsors"
 
 export default async function Page({
     params,
@@ -17,19 +18,13 @@ export default async function Page({
     return (
         <main>
             <LogoImage id={id} />
-
+            <Sponsors id={id} />
             <Info id={id} />
-
             <AdminSection id={id} />
-
             <EvaluatorSection id={id} />
-
             <MyPresentations id={id} />
-
             <AxisSection id={id} />
-
             <Stats id={id} />
-
             <Circulars id={id} />
         </main>
     )

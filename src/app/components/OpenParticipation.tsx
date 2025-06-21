@@ -1,6 +1,6 @@
 import { Section } from "./Section"
-import Styles from "./Section2.module.css"
-export const Section2 = () => {
+import Styles from "./OpenParticipation.module.css"
+export const OpenParticipation = () => {
     return (
         <Section title="Participación abierta" className={Styles.section}>
             <div className={Styles.users}>

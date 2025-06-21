@@ -1,13 +1,15 @@
 import { MainHome } from "./components/MainHome"
 import { Welcome } from "./components/Welcome"
-import { Section2 } from "./components/Section2"
+import { OpenParticipation } from "./components/OpenParticipation"
+import { CreateConference } from "./components/CreateConference"
 
 export default function Home() {
     return (
         <>
             <MainHome />
             <Welcome />
-            <Section2 />
+            <OpenParticipation />
+            <CreateConference />
         </>
     )
 }

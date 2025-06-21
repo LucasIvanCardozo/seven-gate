@@ -16,13 +16,21 @@ export const getProfiles = createAction(schema, async ({ conference_id }) =>
         },
         include: {
             users: { select: { name: true, lastname: true, email: true } },
-            profile_roles: { 
-                include: { 
-                    roles: true
-                }
+            conferences: {
+                select: {
+                    id: true,
+                    title: true,
+                },
+            },
+            profile_roles: {
+                include: {
+                    roles: true,
+                },
             },
         },
     }),
 )
 
-export type GetProfiles = NonNullable<Awaited<ReturnType<typeof getProfiles>>["data"]>
+export type GetProfiles = NonNullable<
+    Awaited<ReturnType<typeof getProfiles>>["data"]
+>

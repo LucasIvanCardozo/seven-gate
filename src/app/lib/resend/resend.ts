@@ -1,3 +1,4 @@
+"use server"
 import { CreateEmailOptions, Resend } from "resend"
 
 const { RESEND_API_KEY } = process.env
@@ -5,7 +6,7 @@ if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY is missing!")
 
 const resend = new Resend(RESEND_API_KEY)
 
-export const sendEmail = (props: SendEmailProps) =>
+export const sendEmail = async (props: SendEmailProps) =>
     resend.emails
         .send({
             from: "onboarding@resend.dev",
@@ -13,7 +14,7 @@ export const sendEmail = (props: SendEmailProps) =>
         })
         .then(({ data, error }) =>
             error
-                ? console.error(error.message)
+                ? console.error(error)
                 : console.log(
                       `Email sent to [${props.to}] with response id: ${data?.id}`,
                   ),

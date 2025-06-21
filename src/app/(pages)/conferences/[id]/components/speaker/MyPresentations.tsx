@@ -2,7 +2,7 @@
 import { Header } from "@/app/components/Header"
 import { Section } from "@/app/components/Section"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
-import { getPresentations } from "@/app/lib/actions/presentations/get.presentations"
+import { getMyPresentations } from "@/app/lib/actions/presentations/get.my.presentations"
 import { Downloader } from "../Downloader"
 import { getConference } from "@/app/lib/actions/conferences/get.conference"
 import Styles from "./MyPresentations.module.css"
@@ -15,7 +15,7 @@ export const MyPresentations = async ({ id }: Pick<Conference, "id">) => {
 
     const { roles } = data
 
-    const { data: presentations } = await getPresentations({ id })
+    const { data: presentations } = await getMyPresentations({ id })
     if (!presentations?.length || !roles?.includes("ponente")) return null
 
     return (

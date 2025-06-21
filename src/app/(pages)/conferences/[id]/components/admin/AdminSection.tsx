@@ -6,6 +6,9 @@ import { RoleAdministrationButton } from "./roleAdministration/RoleAdministratio
 import { getConference } from "@/app/lib/actions/conferences/get.conference"
 import { CircularAdministrationButton } from "./circularAdministration/CircularAdministrationButton"
 import { GenerateQrButton } from "./qrGenerate/generateQrButton"
+import { ComunicationAdministrationButton } from "./comunicationAdministration/ComunicationAdministrationButton"
+import { SponsorsAdministrationButton } from "./sponsorsAdministration/SponsorsAdministrationButton"
+import { CertificatesAdministrationButton } from "./certificatesAdministration/CertificatesAdministrationButton"
 
 export const AdminSection = async ({ id }: Pick<Conference, "id">) => {
     const { data } = await getConference({ id })
@@ -16,10 +19,18 @@ export const AdminSection = async ({ id }: Pick<Conference, "id">) => {
 
     return (
         <Section title="Administración">
-            <div className="flex">
+            <div
+                className="flex"
+                style={{
+                    flexWrap: "wrap",
+                }}
+            >
+                <SponsorsAdministrationButton id={id}/>
+                <ComunicationAdministrationButton id={id} />
                 <AxisAdministrationButton id={id} />
                 <RoleAdministrationButton id={id} />
                 <CircularAdministrationButton id={id} />
+                <CertificatesAdministrationButton id={id} />
                 <GenerateQrButton id={id} />
             </div>
         </Section>

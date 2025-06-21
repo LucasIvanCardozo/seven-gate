@@ -140,6 +140,8 @@ model votes {
   created_at       DateTime?     @default(now()) @db.Timestamp(6)
   profile          profile       @relation(fields: [giver_profile_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   presentations    presentations @relation(fields: [presentation_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([giver_profile_id, presentation_id])
 }
 
 model winner_types {

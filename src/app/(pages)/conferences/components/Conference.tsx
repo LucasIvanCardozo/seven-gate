@@ -6,17 +6,11 @@ import type {
 } from "@/app/lib/actions/conferences/get.my.conferences"
 import { EnrollButton } from "./enroll/EnrollButton"
 import { UnEnrollButton } from "./unenroll/UnEnrollButton"
-import Link from "next/link"
 import { DayJs } from "@/app/utils/DayJs"
 import Styles from "./Conference.module.css"
-import {
-    Admin,
-    Evaluator,
-    Listener,
-    Speaker,
-} from "@/app/assets/icons/react-icons"
-import { ReactNode } from "react"
 import { getConference } from "@/app/lib/actions/conferences/get.conference"
+import { GoConference } from "./GoConference"
+import { RoleWithIcon } from "./RoleWithIcon"
 
 export const Conference = async ({ id }: Pick<ConferenceType, "id">) => {
     const { data } = await getConference({ id })
@@ -37,11 +31,7 @@ export const Conference = async ({ id }: Pick<ConferenceType, "id">) => {
             <div className={Styles.actions}>
                 <UnEnrollButton id={id} />
                 <EnrollButton id={id} />
-                <button>
-                    <Link className="outlined" href={`/conferences/${id}`}>
-                        Ver +
-                    </Link>
-                </button>
+                <GoConference id={id} />
             </div>
         </article>
     )
@@ -50,19 +40,9 @@ export const Conference = async ({ id }: Pick<ConferenceType, "id">) => {
 const Roles = ({ roles }: Pick<ConferenceType, "roles">) =>
     !!roles?.length && (
         <div className={`${Styles.roles} card white`}>
-            <h4>Tus Roles</h4>
+            <h4>Tus Roles:</h4>
             {roles.map((role) => (
-                <span key={role} className={`${Styles.role}`}>
-                    {RoleIcon[role]}
-                    {role}
-                </span>
+                <RoleWithIcon role={role} key={role} />
             ))}
         </div>
     )
-
-const RoleIcon: Record<Role, ReactNode> = {
-    admin: <Admin />,
-    evaluador: <Evaluator />,
-    ponente: <Speaker />,
-    oyente: <Listener />,
-}

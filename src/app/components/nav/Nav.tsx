@@ -3,11 +3,11 @@
 import Link from "next/link"
 import Styles from "./Nav.module.css"
 import { useState } from "react"
-import { useDesktop } from "../hooks/useDesktop"
-import { useUser } from "../hooks/useUser"
-import { Burger, Close } from "../assets/icons/react-icons"
+import { useDesktop } from "../../hooks/useDesktop"
+import { useUser } from "../../hooks/useUser"
+import { Burger, Close } from "../../assets/icons/react-icons"
 import Image from "next/image"
-import Sevengate from "../assets/images/sevenGate.png"
+import Sevengate from "../../assets/images/sevenGate.png"
 import { useRouter } from "next/navigation"
 export const Nav = () => {
     const { isDesktop } = useDesktop()

@@ -6,6 +6,8 @@ import { AddPresentation } from "../speaker/addPresentation/AddPresentation"
 import { AxisEditButton } from "./editAxis/editAxisButton"
 import { getAxis } from "@/app/lib/actions/axis/get.axis"
 import { DeleteAxisButton } from "./deleteAxis/deleteAxisButton"
+import { VotePresentationButton } from "./vote/VotePresentationButton"
+import { Votes } from "./vote/Votes"
 
 export const Axis = async ({ id }: Pick<AxisDTO, "id">) => {
     const { data } = await getAxis({ id })
@@ -18,11 +20,15 @@ export const Axis = async ({ id }: Pick<AxisDTO, "id">) => {
             <Header>
                 <p>{title}</p>
                 <div className="flex">
+                    <VotePresentationButton id={id} />
                     <AddPresentation id={id} />
                     <AxisEditButton id={id} />
                     <DeleteAxisButton id={id} />
                 </div>
             </Header>
+            <p>Horario: No disponible aún</p>
+            <span>Sala: No disponible aún</span>
+            <Votes />
             {organizer && <small>Organizado por: {organizer.users.name}</small>}
         </article>
     )

@@ -10,7 +10,7 @@ const schema = object({
     id: number().positive(),
 })
 
-export const getPresentations = createAction(schema, async ({ id }) => {
+export const getMyPresentations = createAction(schema, async ({ id }) => {
     const { user } = await getServerUser()
     if (!user) return []
 
@@ -31,8 +31,8 @@ export const getPresentations = createAction(schema, async ({ id }) => {
                 select: {
                     id: true,
                     title: true,
-                }
-            }
-        }
+                },
+            },
+        },
     })
 })

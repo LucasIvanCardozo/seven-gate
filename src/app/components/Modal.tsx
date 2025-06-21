@@ -2,6 +2,9 @@
 
 import React, { ComponentProps, ComponentType, JSX } from "react"
 import ReactModal from "react-modal"
+import Styles from "./Modal.module.css"
+import { Header } from "./Header"
+import { Close } from "../assets/icons/react-icons"
 
 ReactModal.setAppElement("#root")
 
@@ -10,9 +13,11 @@ const customStyles: Props["style"] = {
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        width: "max-content",
+        width: "85%",
+        padding: "0.8rem",
         height: "min-content",
-        maxWidth: "90%",
+        maxWidth: "450px",
+        position: "relative",
     },
     overlay: {
         backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -26,7 +31,15 @@ export const Modal = ({ opener, ...rest }: Props) => {
         <>
             {React.cloneElement(opener, { onClick: () => setIsOpen(true) })}
             <ReactModal isOpen={isOpen} {...rest} style={customStyles}>
-                <button onClick={() => setIsOpen(false)} >X</button>
+                <Header>
+                    <span></span>
+                    <button
+                        className={Styles.close}
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <Close />
+                    </button>
+                </Header>
                 {rest.children}
             </ReactModal>
         </>

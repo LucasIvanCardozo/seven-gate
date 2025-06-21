@@ -10,7 +10,7 @@ import { getAxis } from "../axis/get.axis"
 import { getProfile } from "../profiles/get.profile"
 import { canUploadPresentation } from "./can.upload.presentation"
 import { getEvaluatorsByAxis } from "../profiles/get.evaluators.by.axis"
-import { getPresentations } from "./get.presentations"
+import { getMyPresentations } from "./get.my.presentations"
 import { markAsReSent } from "./mark.as.re.sent"
 
 const { object, number, string, instanceof: iof } = z
@@ -78,7 +78,7 @@ export const createPresentation = createAction(
             },
         })
 
-        const { data: presentations } = await getPresentations({
+        const { data: presentations } = await getMyPresentations({
             id: axis.conference_id,
         })
         const approvedWithComments = presentations?.find(

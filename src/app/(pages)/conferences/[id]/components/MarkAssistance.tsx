@@ -7,6 +7,9 @@ export const MarkAssistance = async ({ id }: { id: number }) => {
     const { data: profile } = await getProfile({ conference_id: id })
     if (!profile) return null
 
+    if (profile.roles?.includes("admin"))
+        return null
+
     return (
         <Modal opener={<button className="blue">Marcar asistencia</button>}>
             <Section title="Marcar asistencia">

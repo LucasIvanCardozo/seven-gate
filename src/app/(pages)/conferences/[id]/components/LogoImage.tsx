@@ -17,7 +17,9 @@ export const LogoImage = async ({ id }: Pick<Conference, "id">) => {
                 padding: "4rem 0 0 0",
             }}
         >
-            <img src={logo_url} />
+            <img src={logo_url} style={{
+                borderRadius: 10
+            }} />
         </div>
     )
 }

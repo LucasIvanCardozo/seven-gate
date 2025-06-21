@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation"
 import Styles from "./MainHome.module.css"
 
 export const MainHome = () => {
@@ -12,7 +13,12 @@ export const MainHome = () => {
                         La plataforma que conecta organizadores, participantes y
                         conocimiento
                     </p>
-                    <button className={Styles.cta}>Crear congreso</button>
+                    <a
+                        className={`${Styles.cta} button`}
+                        href="#create-conference"
+                    >
+                        Crear congreso
+                    </a>
                 </section>
             </div>
         </main>

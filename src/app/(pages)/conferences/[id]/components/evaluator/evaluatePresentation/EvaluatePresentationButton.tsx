@@ -7,7 +7,7 @@ export const EvaluatePresentationButton = ({
     id,
 }: Pick<presentations, "id">) => {
     return (
-        <Modal opener={<button className="text dark">Evaluar</button>}>
+        <Modal opener={<button className="blue">Evaluar</button>}>
             <Section title="Evaluar presentación">
                 <EvaluatePresentationForm id={id} />
             </Section>

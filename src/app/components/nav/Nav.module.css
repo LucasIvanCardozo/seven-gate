@@ -4,6 +4,7 @@
     top: 0;
     background: var(--color-primary);
     z-index: 100;
+    box-shadow: 0 0px 10px #0004;
 }
 
 .navMenu {
@@ -32,6 +33,7 @@
             opacity 0.3s ease-in-out;
         opacity: 0;
         pointer-events: none;
+        box-shadow: none;
     }
 
     .navMenu {

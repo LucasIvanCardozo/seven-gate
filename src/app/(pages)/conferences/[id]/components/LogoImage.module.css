@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0 0 0;
+}
+
+.image {
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 10%;
+    object-fit: contain;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 4rem 0 0 0;
+    }
+}

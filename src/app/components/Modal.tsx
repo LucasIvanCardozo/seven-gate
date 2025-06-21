@@ -14,10 +14,11 @@ const customStyles: Props["style"] = {
         left: "50%",
         transform: "translate(-50%, -50%)",
         width: "85%",
-        padding: "0.8rem",
+        padding: "0.5rem",
         height: "min-content",
         maxWidth: "450px",
         position: "relative",
+        borderRadius: "1rem",
     },
     overlay: {
         backgroundColor: "rgba(0, 0, 0, 0.5)",

@@ -1,0 +1,45 @@
+.carouselWrapper {
+    overflow: hidden;
+    width: 100%;
+    padding: 0.5rem 0;
+}
+
+.carouselTrack {
+    display: flex;
+    animation: scrollLeft 20s linear infinite;
+    width: max-content;
+}
+
+.sponsorCard {
+    width: 200px;
+    height: 100px;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    margin-right: 2rem;
+}
+
+.sponsorCard:last-child {
+    margin-right: 0;
+}
+.sponsorCard:first-child {
+    margin-left: 2rem;
+}
+
+.sponsorCard:hover {
+    transform: scale(1.05);
+}
+
+/* Animación */
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}

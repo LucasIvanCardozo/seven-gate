@@ -22,31 +22,35 @@ export const MyPresentations = async ({ id }: Pick<Conference, "id">) => {
         <Section title="Mis ponencias">
             {presentations.map(
                 ({ id, url, axis, state, comments, created_at, title }) => (
-                    <article key={id} className={`${Styles[state]} card white`}>
+                    <article key={id} className={`${Styles[state]} card`}>
                         <Header>
                             <h3>{title}</h3>
                             <Downloader url={url} title={axis.title + ".pdf"} />
                         </Header>
-                        <span>Eje: {axis.title}</span>
+
+                        <span>
+                            <strong>Eje:</strong> {axis.title}
+                        </span>
+
                         <div>
-                            {state === "pending" ? (
-                                <span>Pendiente de evaluación</span>
-                            ) : state === "approved" ? (
-                                <span>Aprobada</span>
-                            ) : state === "approved_with_comments" ? (
-                                <span>Rehacer</span>
-                            ) : state === "re_sent" ? (
-                                <span>Reenviada</span>
-                            ) : (
-                                <span>Rechazada</span>
-                            )}
-                            {comments && (
-                                <div>
-                                    <p>{comments}</p>
-                                </div>
-                            )}
+                            <span>
+                                {state === "pending" &&
+                                    "Pendiente de evaluación"}
+                                {state === "approved" && "Aprobada"}
+                                {state === "approved_with_comments" &&
+                                    "Rehacer"}
+                                {state === "re_sent" && "Reenviada"}
+                                {state === "rejected" && "Rechazada"}
+                            </span>
+
+                            {comments && <p>{comments}</p>}
                         </div>
-                        <span>{DayJs(created_at).format("LLL")} </span>
+
+                        <span>
+                            <strong>Enviado:</strong>{" "}
+                            {DayJs(created_at).format("LLL")}
+                        </span>
+
                         {state === "approved_with_comments" && (
                             <AddPresentation id={axis.id} />
                         )}

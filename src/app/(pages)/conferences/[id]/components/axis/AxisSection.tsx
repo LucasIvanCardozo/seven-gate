@@ -3,7 +3,7 @@ import {
     AxisDTO,
     getAxisByConference,
 } from "@/app/lib/actions/axis/get.axis.by.conference"
-import Styles from "./Axis.module.css"
+import Styles from "./AxisSection.module.css"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import { Section } from "@/app/components/Section"
 import { Axis } from "./Axis"

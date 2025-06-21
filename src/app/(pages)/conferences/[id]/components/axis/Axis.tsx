@@ -8,6 +8,7 @@ import { getAxis } from "@/app/lib/actions/axis/get.axis"
 import { DeleteAxisButton } from "./deleteAxis/deleteAxisButton"
 import { VotePresentationButton } from "./vote/VotePresentationButton"
 import { Votes } from "./vote/Votes"
+import Styles from "./Axis.module.css"
 
 export const Axis = async ({ id }: Pick<AxisDTO, "id">) => {
     const { data } = await getAxis({ id })
@@ -16,9 +17,11 @@ export const Axis = async ({ id }: Pick<AxisDTO, "id">) => {
     const { title, organizer } = data
 
     return (
-        <article className="card white">
+        <article className={`${Styles.axis} card white`}>
             <Header>
-                <p>{title}</p>
+                <h3>
+                    <b>{title.toUpperCase()}</b>
+                </h3>
                 <div className="flex">
                     <VotePresentationButton id={id} />
                     <AddPresentation id={id} />

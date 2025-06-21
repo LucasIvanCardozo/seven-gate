@@ -8,7 +8,10 @@ export const CreateConference = () => {
                 nuestra plataforma, te invitamos a{" "}
                 <strong>ponerte en contacto con nosotros</strong> vía correo
                 electrónico a{" "}
-                <a href="mailto:SevenGateProject@outlook.com">
+                <a
+                    style={{ borderBottom: "1px solid" }}
+                    href="mailto:SevenGateProject@outlook.com"
+                >
                     SevenGateProject@outlook.com
                 </a>
                 .

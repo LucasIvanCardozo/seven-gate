@@ -5,13 +5,17 @@ export const Section = ({
     children,
     title,
     id,
-    className,
+    className = "",
     ...rest
 }: PropsWithChildren<Props>) => {
     return (
         <section id={id} className={`${Styles.section} ${className}`} {...rest}>
-            {typeof title === "string" ? <h2>{title}</h2> : title}
-            {children}
+            {typeof title === "string" ? (
+                <h2 className={Styles.title}>{title}</h2>
+            ) : (
+                <div className={Styles.title}>{title}</div>
+            )}
+            <div className={Styles.content}>{children}</div>
         </section>
     )
 }

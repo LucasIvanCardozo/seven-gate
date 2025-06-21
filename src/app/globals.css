@@ -7,10 +7,6 @@
     --color-primary: var(--color-light-grey-2);
     --color-secondary: #9a8c98;
 }
-#root {
-    flex: 1;
-}
-
 input:required {
     border: 1px solid var(--color-secondary);
 }
@@ -36,10 +32,14 @@ html {
     scroll-behavior: smooth;
 }
 .container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 0.6rem;
 }
 
 a {

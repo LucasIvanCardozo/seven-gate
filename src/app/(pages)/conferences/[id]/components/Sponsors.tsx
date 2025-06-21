@@ -1,55 +1,37 @@
 import { Section } from "@/app/components/Section"
 import Image from "next/image"
+import Styles from "./Sponsors.module.css"
+
+const sponsors = [
+    { src: "/images/UTN.png", alt: "UTN" },
+    { src: "/images/unmdp.png", alt: "UNMDP" },
+    { src: "/images/FCEFyN.png", alt: "UTN repeat" },
+    { src: "/images/UTN.png", alt: "UTN" },
+    { src: "/images/unmdp.png", alt: "UNMDP" },
+    { src: "/images/FCEFyN.png", alt: "UTN repeat" },
+]
 
 export const Sponsors = ({ id }: { id: number }) => {
     return (
         <Section title="Auspiciantes">
-            <div className="flex">
-                <div
-                    style={{
-                        width: "200px",
-                        height: "100px",
-                        position: "relative",
-                        borderRadius: "10px",
-                        overflow: "hidden",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <Image
-                        alt=""
-                        src="/images/UTN.png"
-                        width={200}
-                        height={100}
-                        style={{
-                            objectFit: "contain", // Para logos proporcionales
-                            padding: "12px", // Espacio interno para logos
-                            backgroundColor: "white", // Fondo para contrastar
-                        }}
-                        quality={85}
-                    />
-                </div>
-                <div
-                    style={{
-                        width: "200px",
-                        height: "100px",
-                        position: "relative",
-                        borderRadius: "10px",
-                        overflow: "hidden",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    <Image
-                        alt=""
-                        src="/images/UNMDP.jpg"
-                        width={200}
-                        height={100}
-                        style={{
-                            objectFit: "contain", // Para logos proporcionales
-                            padding: "12px", // Espacio interno para logos
-                            backgroundColor: "white", // Fondo para contrastar
-                        }}
-                        quality={85}
-                    />
+            <div className={Styles.carouselWrapper}>
+                <div className={Styles.carouselTrack}>
+                    {sponsors.map(({ src, alt }, index) => (
+                        <div key={index} className={Styles.sponsorCard}>
+                            <Image
+                                alt={alt}
+                                src={src}
+                                width={200}
+                                height={100}
+                                quality={85}
+                                style={{
+                                    objectFit: "contain",
+                                    padding: ".3rem",
+                                    backgroundColor: "white",
+                                }}
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
         </Section>

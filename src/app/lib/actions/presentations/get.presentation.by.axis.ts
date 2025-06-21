@@ -2,7 +2,6 @@
 
 import { z } from "zod"
 import createAction from "../createActions"
-import { getServerUser } from "../users"
 import { DB } from "../../db/db"
 
 const { object, number } = z
@@ -15,7 +14,7 @@ export const getApprovedPresentationsByAxis = createAction(
     async ({ axis_id }) => {
         return await DB.presentations.findMany({
             where: {
-                ax,
+                axis_id,
             },
             include: {
                 axis: {

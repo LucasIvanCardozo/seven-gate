@@ -12,7 +12,7 @@ export const authOptions: AuthOptions = {
             },
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password)
-                    throw new Error("Email and password are required")
+                    throw new Error("Email y contraseña son requeridos")
 
                 return login(credentials)
             },

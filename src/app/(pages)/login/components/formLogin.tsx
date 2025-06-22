@@ -1,31 +1,30 @@
 "use client"
 
+import { SubmitButton } from "@/app/components/SubmitButton"
+import { useUI } from "@/app/contexts/UIContext"
+import { formToData } from "@/app/utils/formToData"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
 export default function FormLogin() {
+    const { showToast } = useUI()
     const router = useRouter()
 
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-
-        const formData = new FormData(e.currentTarget)
-        const data = Object.fromEntries(formData.entries())
-
-        const response = await signIn("credentials", {
-            ...data,
-            redirect: false,
-        })
-
-        if (!response) return
-
-        if (response.error) return alert("Error: " + response.error)
-
-        if (response.ok) router.push("/")
-    }
-
     return (
-        <form onSubmit={onSubmit}>
+        <form
+            action={async (formData) => {
+                const data = formToData(formData)
+
+                const response = await signIn("credentials", {
+                    ...data,
+                    redirect: false,
+                })
+                if (!response) return
+
+                if (response.error) showToast.error(response.error)
+                else if (response.ok) router.push("/")
+            }}
+        >
             <fieldset>
                 <label>
                     Email:
@@ -35,7 +34,7 @@ export default function FormLogin() {
                     Contraseña:
                     <input type="password" name="password" />
                 </label>
-                <button className="blue">Login</button>
+                <SubmitButton className="blue">Login</SubmitButton>
             </fieldset>
         </form>
     )

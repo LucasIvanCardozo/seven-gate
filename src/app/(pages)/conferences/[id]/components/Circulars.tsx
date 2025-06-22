@@ -27,7 +27,7 @@ const Circular = ({ title, info, created_at }: CircularDTO) => (
     <Section
         title={
             <Header>
-                <b>{title}</b>
+                <h2><b>{title}</b></h2>
                 <span>{DayJs(created_at).format("LLLL")}</span>
             </Header>
         }

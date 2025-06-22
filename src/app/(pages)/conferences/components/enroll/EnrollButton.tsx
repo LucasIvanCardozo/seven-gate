@@ -25,14 +25,6 @@ export const EnrollButton = async ({ id }: Pick<Conference, "id">) => {
     if (!roles?.includes("ponente") && !roles?.includes("admin"))
         availableRoles.push("ponente")
     
-    // roles?.includes("admin")
-    //     ? []
-    //     : rolesLength === 1 && roles?.at(0) === "oyente"
-    //       ? ["ponente"]
-    //       : roles?.includes("ponente")
-    //         ? []
-    //         : validRoles?.filter((role) => !roles?.includes(role))
-
     if (!availableRoles.length) return null
 
     return (

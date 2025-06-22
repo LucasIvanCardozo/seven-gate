@@ -1,34 +1,42 @@
 "use client"
 
-import { useFormStatus } from "react-dom"
-import { useUI } from "../../../contexts/UIContext"
-import { useRouter } from "next/navigation"
 import { createUser } from "@/app/lib/actions/users/create.users"
 import { formToData } from "@/app/utils/formToData"
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { useFormStatus } from "react-dom"
+import { useUI } from "../../../contexts/UIContext"
 import Styles from "./FormRegister.module.css"
+import { SubmitButton } from "@/app/components/SubmitButton"
 
 export default function FormRegister() {
-    const { pending } = useFormStatus()
     const { showToast } = useUI()
     const router = useRouter()
 
-    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        const formData = new FormData(event.currentTarget)
-
-        if (formData.get("password") !== formData.get("password_confirmation"))
-            return showToast.error("Las contraseñas no coinciden")
-
-        const response = await createUser(formToData(formData))
-
-        if (!response.success) return showToast.error(response.error)
-
-        showToast.success("Registrado con exito")
-        router.push(response.data.goTo)
-    }
-
     return (
-        <form className={Styles.form} onSubmit={onSubmit}>
+        <form
+            className={Styles.form}
+            action={async (formData) => {
+                const data = formToData(formData)
+
+                if (data.password !== data.password_confirmation) {
+                    showToast.error("Las contraseñas no coinciden")
+                    return
+                }
+
+                const { error } = await createUser(data)
+
+                if (error) showToast.error(error)
+                else {
+                    showToast.success("Registrado con exito")
+                    await signIn("credentials", {
+                        ...data,
+                        redirect: false,
+                    })
+                    router.push("/conferences")
+                }
+            }}
+        >
             <fieldset>
                 <legend>Datos personales</legend>
                 <label>
@@ -59,9 +67,7 @@ export default function FormRegister() {
                         name="password_confirmation"
                     />
                 </label>
-                <button className="blue" disabled={pending}>
-                    {pending ? "..." : "Registrarme"}
-                </button>
+                <SubmitButton className="blue">Registrarme</SubmitButton>
             </fieldset>
         </form>
     )

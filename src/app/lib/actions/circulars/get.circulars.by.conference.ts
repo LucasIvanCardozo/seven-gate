@@ -15,6 +15,9 @@ export const getCiruclarsByConference = createAction(schema, async ({ id }) =>
         where: {
             conference_id: id,
         },
+        orderBy: {
+            created_at: "asc",
+        },
     }),
 )
 

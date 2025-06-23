@@ -16,12 +16,14 @@ import { unEnrollToConference } from "@/app/lib/actions/conferences/un.enroll.to
 import React, { ReactNode } from "react"
 import Styles from "./UnEnrollForm.module.css"
 import { RoleWithIcon } from "../RoleWithIcon"
-
+import { startTransition } from "react"
+import { useRouter } from "next/navigation"
 export const UnEnrollForm = ({
     id,
     roles,
 }: Pick<Conference, "roles" | "id">) => {
     const { showToast } = useUI()
+    const router = useRouter()
 
     return (
         <form
@@ -35,7 +37,7 @@ export const UnEnrollForm = ({
                 if (!response.success) showToast.error(response.error)
                 else {
                     showToast.success("Desinscripto con éxito")
-                    setTimeout(() => window.location.reload(), 1000)
+                    startTransition(router.refresh)
                 }
             }}
         >

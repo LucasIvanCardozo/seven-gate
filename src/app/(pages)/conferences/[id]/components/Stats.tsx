@@ -1,8 +1,8 @@
 "use server"
 import { Section } from "@/app/components/Section"
-import { getConference } from "@/app/lib/actions/conferences/get.conference"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import getStats from "@/app/lib/actions/conferences/get.stats"
+import { capitalize } from "@/app/utils/capitalize"
 
 export const Stats = async ({ id }: Pick<Conference, "id">) => {
     const { data } = await getStats({ id })
@@ -14,7 +14,7 @@ export const Stats = async ({ id }: Pick<Conference, "id">) => {
         <Section title="Stats">
             {Object.entries(byRoles).map(([role, value]) => (
                 <span key={role}>
-                    <b>{role}:</b> {value}
+                    <b>{capitalize(role)}:</b> {value}
                 </span>
             ))}
 

@@ -1,46 +1,26 @@
-"use client"
+"use server"
+import { getPresentationsVotes } from "@/app/lib/actions/presentations/get.presentation.votes"
+import { VotesCharts } from "./VotesCharts"
 
-import { Chart } from "react-charts"
+export const Votes = async ({ id }: { id: number }) => {
+    const { data: votes } = await getPresentationsVotes({ id })
+    if (!votes) return null
 
-export const Votes = () => {
     const data = [
         {
             label: "Votos por ponencia",
-            data: [
-                { primary: "Ponencia A", secondary: 12 },
-                { primary: "Ponencia B", secondary: 8 },
-                { primary: "Ponencia C", secondary: 20 },
-                { primary: "Ponencia D", secondary: 5 },
-                { primary: "Ponencia E", secondary: 12 },
-                { primary: "Ponencia F", secondary: 5 },
-            ],
+            data: votes.map(({ title, count }) => ({
+                primary: title,
+                secondary: count,
+            })),
         },
     ]
 
-    const primaryAxis = {
-        getValue: (datum: any) => datum.primary,
-    }
-
-    const secondaryAxes = [
-        {
-            getValue: (datum: any) => datum.secondary,
-        },
-    ]
+    if (!data[0].data.length) return null
 
     return (
         <div style={{ width: "100%", height: "100px" }}>
-            <Chart
-                options={{
-                    data,
-                    primaryAxis,
-                    secondaryAxes,
-                    tooltip: false,
-                    dark: false, // podés activar dark mode si querés
-                    initialWidth: 600,
-                    initialHeight: 400,
-                    interactionMode: "closest",
-                }}
-            />
+            <VotesCharts data={data} />
         </div>
     )
 }

@@ -8,18 +8,20 @@ import {
 import { createProfile } from "@/app/lib/actions/profiles/create.profile"
 import { GetProfiles } from "@/app/lib/actions/profiles/get.profiles"
 import { formToData } from "@/app/utils/formToData"
-import { useState } from "react"
+import { startTransition } from "react"
+import { useRouter } from "next/navigation"
 
 export const NewRoleForm = ({
     id,
     roles,
-    profiles
+    profiles,
 }: {
     id: Conference["id"]
     roles: { id: number; role: Role }[]
     profiles: GetProfiles
 }) => {
     const { showToast } = useUI()
+    const router = useRouter()
 
     const users = profiles.map((item) => item.users)
 
@@ -33,7 +35,10 @@ export const NewRoleForm = ({
                     ...data,
                 })
                 if (error) showToast.error(error)
-                else showToast.success("Perfil agregado correctamente :)")
+                else {
+                    showToast.success("Perfil agregado correctamente :)")
+                    startTransition(router.refresh)
+                }
             }}
         >
             <label>

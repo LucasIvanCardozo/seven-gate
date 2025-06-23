@@ -7,6 +7,8 @@ import {
 import { getConference } from "@/app/lib/actions/conferences/get.conference"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import { DayJs } from "@/app/utils/DayJs"
+import { Downloader } from "./Downloader"
+import { capitalize } from "@/app/utils/capitalize"
 
 export const Circulars = async ({ id }: Pick<Conference, "id">) => {
     const { data } = await getCiruclarsByConference({ id })
@@ -23,15 +25,25 @@ export const Circulars = async ({ id }: Pick<Conference, "id">) => {
     )
 }
 
-const Circular = ({ title, info, created_at }: CircularDTO) => (
+const Circular = ({ title, info, created_at, url }: CircularDTO) => (
     <Section
         title={
             <Header>
-                <h2><b>{title}</b></h2>
-                <span>{DayJs(created_at).format("LLLL")}</span>
+                <h2>
+                    <b>{title}</b>
+                </h2>
+                <span style={{ opacity: 0.8, fontSize: "1rem" }}>
+                    {capitalize(DayJs(created_at).format("LLL"))}
+                </span>
             </Header>
         }
     >
-        <p>{info}</p>
+        {url ? (
+            <Downloader title={`${title}.pdf`} url={url}>
+                <span>Descargar circular</span>
+            </Downloader>
+        ) : (
+            <p>{info}</p>
+        )}
     </Section>
 )

@@ -4,9 +4,11 @@ import { SubmitButton } from "@/app/components/SubmitButton"
 import { useUI } from "@/app/contexts/UIContext"
 import { AxisDTO } from "@/app/lib/actions/axis/get.axis.by.conference"
 import { createPresentation } from "@/app/lib/actions/presentations/create.presentation"
-
+import { startTransition } from "react"
+import { useRouter } from "next/navigation"
 export const AddPresentationForm = ({ id }: Pick<AxisDTO, "id">) => {
     const { showToast } = useUI()
+    const router = useRouter()
 
     return (
         <form
@@ -21,7 +23,10 @@ export const AddPresentationForm = ({ id }: Pick<AxisDTO, "id">) => {
                 })
 
                 if (error) showToast.error(error)
-                else showToast.success("Ponencia subida correctamente")
+                else {
+                    showToast.success("Ponencia subida correctamente")
+                    startTransition(router.refresh)
+                }
             }}
         >
             <label>

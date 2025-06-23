@@ -3,9 +3,12 @@ import { SubmitButton } from "@/app/components/SubmitButton"
 import { useUI } from "@/app/contexts/UIContext"
 import { createAxis } from "@/app/lib/actions/axis/create.axis"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
+import { startTransition } from "react"
+import { useRouter } from "next/navigation"
 
 export const NewAxisForm = ({ id }: Pick<Conference, "id">) => {
     const { showToast } = useUI()
+    const router = useRouter()
 
     return (
         <form
@@ -18,7 +21,10 @@ export const NewAxisForm = ({ id }: Pick<Conference, "id">) => {
                 })
 
                 if (error) showToast.error(error)
-                else showToast.success(`Eje "${title}" creado correctamente`)
+                else {
+                    showToast.success(`Eje "${title}" creado correctamente`)
+                    startTransition(router.refresh)
+                }
             }}
         >
             <label>

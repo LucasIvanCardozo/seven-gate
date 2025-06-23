@@ -30,7 +30,7 @@ export const Info = async ({ id }: Pick<Conference, "id">) => {
             <div className="flex">
                 <p>Fecha límite de presentación: </p>
                 <b>
-                    {capitalize(DayJs(presentation_limit_date).format("LLLL"))}
+                    {capitalize(DayJs(presentation_limit_date).format("LLL"))}
                 </b>
             </div>
 

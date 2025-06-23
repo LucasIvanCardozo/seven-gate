@@ -5,10 +5,13 @@ import { useUI } from "@/app/contexts/UIContext"
 import { evaluatePresentation } from "@/app/lib/actions/presentations/evaluate.presentation"
 import { presentations, State } from "@prisma/client"
 import { useState } from "react"
+import { startTransition } from "react"
+import { useRouter } from "next/navigation"
 
 export const EvaluatePresentationForm = ({ id }: Pick<presentations, "id">) => {
     const { showToast } = useUI()
     const [state, setState] = useState<State | null>(null)
+    const router = useRouter()
     return (
         <form
             action={async (formData) => {
@@ -21,7 +24,10 @@ export const EvaluatePresentationForm = ({ id }: Pick<presentations, "id">) => {
                 })
 
                 if (error) showToast.error(error)
-                else showToast.success("Evaluación enviada")
+                else {
+                    showToast.success("Evaluación enviada")
+                    startTransition(router.refresh)
+                }
             }}
         >
             <select

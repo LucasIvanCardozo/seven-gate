@@ -3,10 +3,10 @@
 
 import { Header } from "@/app/components/Header"
 import { useUI } from "@/app/contexts/UIContext"
-import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import { addVote } from "@/app/lib/actions/presentations/add.vote"
 import { presentations } from "@prisma/client"
-
+import { startTransition } from "react"
+import { useRouter } from "next/navigation"
 export const VotePresentationList = ({
     conference_id,
     presentations,
@@ -15,6 +15,7 @@ export const VotePresentationList = ({
     presentations: presentations[]
 }) => {
     const { showToast } = useUI()
+    const router = useRouter()
 
     return (
         <section
@@ -36,13 +37,15 @@ export const VotePresentationList = ({
                                 addVote({
                                     conference_id,
                                     presentation_id: id,
-                                }).then(({ error }) =>
-                                    error
-                                        ? showToast.error(error)
-                                        : showToast.success(
-                                              "Voto guardado correctamente",
-                                          ),
-                                )
+                                }).then(({ error }) => {
+                                    if (error) showToast.error(error)
+                                    else {
+                                        showToast.success(
+                                            "Voto guardado correctamente",
+                                        )
+                                        startTransition(router.refresh)
+                                    }
+                                })
                             }
                         >
                             Votar

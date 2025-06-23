@@ -1,8 +1,21 @@
-import { PropsWithChildren } from "react"
+import { ComponentProps, PropsWithChildren } from "react"
 
-export const Header = ({ children }: PropsWithChildren) => {
+export const Header = ({
+    children,
+    style,
+
+    ...rest
+}: PropsWithChildren<ComponentProps<"header">>) => {
     return (
-        <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <header
+            {...rest}
+            style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                ...style,
+            }}
+        >
             {children}
         </header>
     )

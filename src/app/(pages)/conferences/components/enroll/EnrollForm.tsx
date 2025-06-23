@@ -6,10 +6,13 @@ import { enrollToConference } from "@/app/lib/actions/conferences/enroll.to.conf
 import { Role } from "@/app/lib/actions/conferences/get.my.conferences"
 import { capitalize } from "@/app/utils/capitalize"
 import { formToData } from "@/app/utils/formToData"
+import { startTransition } from "react"
+import { useRouter } from "next/navigation"
 
 export const EnrollForm = ({ id, roles }: { id: number; roles: Role[] }) => {
     const { showToast } = useUI()
 
+    const router = useRouter()
     return (
         <form
             action={async (formData) => {
@@ -20,8 +23,8 @@ export const EnrollForm = ({ id, roles }: { id: number; roles: Role[] }) => {
 
                 if (!response.success) showToast.error(response.error)
                 else {
-                    setTimeout(() => window.location.reload(), 1000)
                     showToast.success(`Inscripto en: ${response.data.title}`)
+                    startTransition(router.refresh)
                 }
             }}
         >

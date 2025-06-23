@@ -15,6 +15,7 @@ export default function createAction<T extends z.Schema, K>(
                 error: null,
             }
         } catch (error) {
+            console.error(error)
             if (error instanceof z.ZodError)
                 return {
                     success: false,
@@ -33,7 +34,9 @@ export default function createAction<T extends z.Schema, K>(
     }
 }
 
-type Response<TValue, TData> = (values?: TValue | Record<string, unknown>) => Promise<
+type Response<TValue, TData> = (
+    values?: TValue | Record<string, unknown>,
+) => Promise<
     | {
           success: true
           data: TData

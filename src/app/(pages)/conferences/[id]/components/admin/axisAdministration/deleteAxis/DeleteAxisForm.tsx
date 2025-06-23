@@ -4,10 +4,11 @@ import { SubmitButton } from "@/app/components/SubmitButton"
 import { useUI } from "@/app/contexts/UIContext"
 import { deleteAxis } from "@/app/lib/actions/axis/delete.axis"
 import { AxisDTO } from "@/app/lib/actions/axis/get.axis.by.conference"
-import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import { useState } from "react"
-
+import { startTransition } from "react"
+import { useRouter } from "next/navigation"
 export const DeleteAxisForm = ({ axis }: { axis: AxisDTO[] }) => {
+    const router = useRouter()
     const { showToast } = useUI()
     const [sure, setSure] = useState(false)
     const [id, setId] = useState<number | null>(null)
@@ -22,7 +23,10 @@ export const DeleteAxisForm = ({ axis }: { axis: AxisDTO[] }) => {
                 })
 
                 if (error) showToast.error(error)
-                else showToast.success(`Eje eliminado correctamente`)
+                else {
+                    showToast.success(`Eje eliminado correctamente`)
+                    startTransition(router.refresh)
+                }
             }}
         >
             <select

@@ -23,8 +23,9 @@ model axis {
 model circular {
   id            Int         @id @default(autoincrement())
   conference_id Int
+  url           String?     @db.VarChar
   title         String      @db.VarChar
-  info          String      @db.VarChar
+  info          String?     @db.VarChar
   created_at    DateTime?   @default(now()) @db.Timestamp(6)
   conferences   conferences @relation(fields: [conference_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

@@ -1,9 +1,10 @@
 "use client"
 
 import { SubmitButton } from "@/app/components/SubmitButton"
-import { useUI } from "@/app/contexts/UIContext";
-import { addEvaluatorToAxis } from "@/app/lib/actions/axis/add.evaluator.to.axis";
-
+import { useUI } from "@/app/contexts/UIContext"
+import { addEvaluatorToAxis } from "@/app/lib/actions/axis/add.evaluator.to.axis"
+import { startTransition } from "react"
+import { useRouter } from "next/navigation"
 export const AxisEvaluatorForm = ({
     id,
     evaluatorsToAssign,
@@ -11,22 +12,26 @@ export const AxisEvaluatorForm = ({
     id: number
     evaluatorsToAssign: { email: string; name: string; lastname: string }[]
 }) => {
-    const {showToast} = useUI()
+    const { showToast } = useUI()
+    const router = useRouter()
 
     return (
-        <form action={async (formData) => {
-            const email = formData.get("email")
+        <form
+            action={async (formData) => {
+                const email = formData.get("email")
 
-            const { error } = await addEvaluatorToAxis({
-                email,
-                axis_id: id
-            })
+                const { error } = await addEvaluatorToAxis({
+                    email,
+                    axis_id: id,
+                })
 
-            if (error)
-                showToast.error(error)
-            else 
-                showToast.success("Evaluador agregado correctamente")
-        }}>
+                if (error) showToast.error(error)
+                else {
+                    showToast.success("Evaluador agregado correctamente")
+                    startTransition(router.refresh)
+                }
+            }}
+        >
             <label>
                 Evaluador:
                 <input

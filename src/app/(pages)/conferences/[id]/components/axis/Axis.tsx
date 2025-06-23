@@ -18,11 +18,11 @@ export const Axis = async ({ id }: Pick<AxisDTO, "id">) => {
 
     return (
         <article className={`${Styles.axis} card white`}>
-            <Header>
+            <Header style={{ flexWrap: "wrap" }}>
                 <h3>
                     <b>{title.toUpperCase()}</b>
                 </h3>
-                <div className="flex">
+                <div className="flex" style={{ flexWrap: "wrap" }}>
                     <VotePresentationButton id={id} />
                     <AddPresentation id={id} />
                     <AxisEditButton id={id} />
@@ -31,7 +31,7 @@ export const Axis = async ({ id }: Pick<AxisDTO, "id">) => {
             </Header>
             <p>Horario: No disponible aún</p>
             <span>Sala: No disponible aún</span>
-            <Votes />
+            <Votes id={id} />
             {organizer && <small>Organizado por: {organizer.users.name}</small>}
         </article>
     )

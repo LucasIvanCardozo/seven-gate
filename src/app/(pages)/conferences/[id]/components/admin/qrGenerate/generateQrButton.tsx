@@ -6,6 +6,7 @@ import { getConference } from "@/app/lib/actions/conferences/get.conference"
 import { Conference } from "@/app/lib/actions/conferences/get.my.conferences"
 import QRCode from "react-qr-code"
 import { Downloader } from "../../Downloader"
+import { Section } from "@/app/components/Section"
 
 export const GenerateQrButton = async ({ id }: Pick<Conference, "id">) => {
     const { data: conference } = await getConference({ id })
@@ -15,11 +16,9 @@ export const GenerateQrButton = async ({ id }: Pick<Conference, "id">) => {
 
     return (
         <Modal opener={<button className="blue">QR</button>}>
-            <Header>
-                <h3>{title}</h3>
-                <Downloader title={`${title}-QR.pdf`} url="" />
-            </Header>
-            <QRCode value={"a"} />
+            <Section title={title}>
+                <QRCode style={{ width: "100%" }} value={title} />
+            </Section>
         </Modal>
     )
 }

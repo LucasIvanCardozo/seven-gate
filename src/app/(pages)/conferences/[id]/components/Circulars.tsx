@@ -43,7 +43,7 @@ const Circular = ({ title, info, created_at, url }: CircularDTO) => (
                 <span>Descargar circular</span>
             </Downloader>
         ) : (
-            <p>{info}</p>
+            <p style={{ whiteSpace: "pre-line" }}>{info}</p>
         )}
     </Section>
 )

@@ -7,6 +7,7 @@ import { Stats } from "./components/Stats"
 import { LogoImage } from "./components/LogoImage"
 import { Circulars } from "./components/Circulars"
 import { Sponsors } from "./components/Sponsors"
+import { Survey } from "./components/Survey"
 
 export default async function Page({
     params,
@@ -19,6 +20,7 @@ export default async function Page({
         <main>
             <LogoImage id={id} />
             <Sponsors id={id} />
+            <Survey id={id} />
             <Info id={id} />
             <AdminSection id={id} />
             <EvaluatorSection id={id} />

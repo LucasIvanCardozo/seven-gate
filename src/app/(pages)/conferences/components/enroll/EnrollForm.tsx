@@ -8,6 +8,8 @@ import { capitalize } from "@/app/utils/capitalize"
 import { formToData } from "@/app/utils/formToData"
 import { startTransition } from "react"
 import { useRouter } from "next/navigation"
+import Styles from "./EnrollForm.module.css"
+import { RoleWithIcon } from "../RoleWithIcon"
 
 export const EnrollForm = ({ id, roles }: { id: number; roles: Role[] }) => {
     const { showToast } = useUI()
@@ -15,6 +17,7 @@ export const EnrollForm = ({ id, roles }: { id: number; roles: Role[] }) => {
     const router = useRouter()
     return (
         <form
+            className={Styles.form}
             action={async (formData) => {
                 const response = await enrollToConference({
                     id,
@@ -28,12 +31,14 @@ export const EnrollForm = ({ id, roles }: { id: number; roles: Role[] }) => {
                 }
             }}
         >
-            {roles.map((role) => (
-                <label key={role} className="inline right">
-                    {capitalize(role)}
-                    <input required type="radio" name="role" value={role} />
-                </label>
-            ))}
+            <div className={Styles.roles}>
+                {roles.map((role) => (
+                    <label key={role} className="inline right">
+                        <RoleWithIcon role={role} />
+                        <input required type="radio" name="role" value={role} />
+                    </label>
+                ))}
+            </div>
 
             <SubmitButton className="blue">Inscribirme</SubmitButton>
         </form>

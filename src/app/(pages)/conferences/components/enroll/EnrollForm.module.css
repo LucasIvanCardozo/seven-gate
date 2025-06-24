@@ -1,0 +1,21 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.roles {
+    width: min-content;
+}
+
+.roles > label {
+    display: flex;
+    justify-content: center;
+    width: min-content;
+}
+
+.roles input {
+    font-size: 0.3rem;
+    width: min-content;
+}

@@ -12,7 +12,7 @@ export const Survey = async ({ id }: Pick<Conference, "id">) => {
     const { date, profileId } = conference
 
     if (!profileId) return null
-    if (DayJs(date).add(1, "day").isBefore(DayJs())) return null
+    if (!DayJs(date).add(1, "day").isBefore(DayJs())) return null
 
     return (
         <Section title="Encuesta de satisfacción">
